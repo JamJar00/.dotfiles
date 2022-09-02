@@ -24,7 +24,17 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# PS1 setup
+function __ps1() {
+  GREEN='\[\033[01;32m\]'
+  BLUE='\[\033[01;34m\]'
+  LIGHT_BLUE='\[\033[01;96m\]'
+  RESET='\[\033[00m\]' 
+
+  echo "\n$GREEN\u@\h$RESET $BLUE\w$RESET$LIGHT_BLUE\$(__git_ps1)$RESET\n\$ "
+}
+
+PS1="$(__ps1)"
 
 # enable color support of common utilities
 alias ls='ls --color=auto'
@@ -46,7 +56,7 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:$HOME/.local/bin"
 
 # Add mcfly
-[ which mcfly > /dev/null ] && eval "$(mcfly init bash)"
+[ command -v mcfly &> /dev/null ] && eval "$(mcfly init bash)"
 
 # Fix GPG signing with git not knowing how to ask for a password
 export GPG_TTY=$(tty)
