@@ -47,3 +47,6 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Add mcfly
 [ which mcfly > /dev/null ] && eval "$(mcfly init bash)"
+
+# Fix GPG signing with git not knowing how to ask for a password
+export GPG_TTY=$(tty)
