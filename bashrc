@@ -26,15 +26,22 @@ shopt -s checkwinsize
 
 # PS1 setup
 function __ps1() {
-  GREEN='\[\033[01;32m\]'
-  BLUE='\[\033[01;34m\]'
-  LIGHT_BLUE='\[\033[01;96m\]'
-  RESET='\[\033[00m\]' 
+  last_exit=$?
 
-  echo "\n$GREEN\u@\h$RESET $BLUE\w$RESET$LIGHT_BLUE\$(__git_ps1)$RESET\n\$ "
+  red='\[\033[01;31m\]'
+  green='\[\033[01;32m\]'
+  blue='\[\033[01;34m\]'
+  light_blue='\[\033[01;96m\]'
+  reset='\[\033[00m\]' 
+
+  [[ $last_exit == 0 ]] && chev_a=$green || chev_a=$red
+  git diff-index --quiet HEAD -- && chev_b=$green || chev_b=$blue
+  [ -z $(git log @{u}..) ] && chev_c=$green || chev_c=$blue
+
+  PS1="\n$green\u@\h $blue\w$light_blue\$(__git_ps1)\n$chev_a›$chev_b›$chev_c›$reset "
 }
 
-PS1="$(__ps1)"
+PROMPT_COMMAND="__ps1"
 
 # enable color support of common utilities
 alias ls='ls --color=auto'
