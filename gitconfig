@@ -1,0 +1,10 @@
+[user]
+	email = hey@jread.dev
+	name = Jamie Read
+	signingkey = 3240166C4C19F9D184AB9248AAC8EBC0C2A8A5E2
+[core]
+	editor = vim
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
