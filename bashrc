@@ -34,9 +34,22 @@ function __ps1() {
   light_blue='\[\033[01;96m\]'
   reset='\[\033[00m\]' 
 
+  # A chevron shows last exit code
   [[ $last_exit == 0 ]] && chev_a=$green || chev_a=$red
-  git diff-index --quiet HEAD -- && chev_b=$green || chev_b=$blue
-  [ -z $(git log @{u}..) ] && chev_c=$green || chev_c=$blue
+
+  # B chevron shows unstaged changes
+  if [ -d .git ]; then
+    git diff-index --quiet HEAD -- && chev_b=$green || chev_b=$blue
+  else
+    chev_b=$reset
+  fi
+
+  # C chevron shows unpushed changes
+  if [ -d .git ]; then
+    [ -z "$(git log @{u}..)" ] && chev_c=$green || chev_c=$blue
+  else
+    chev_c=$reset
+  fi
 
   PS1="\n$green\u@\h $blue\w$light_blue\$(__git_ps1)\n$chev_a›$chev_b›$chev_c›$reset "
 }
