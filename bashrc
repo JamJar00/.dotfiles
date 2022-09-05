@@ -30,6 +30,7 @@ function __ps1() {
 
   red='\[\033[01;31m\]'
   green='\[\033[01;32m\]'
+  yellow='\[\033[01;33m\]'
   blue='\[\033[01;34m\]'
   light_blue='\[\033[01;96m\]'
   reset='\[\033[00m\]' 
@@ -39,14 +40,14 @@ function __ps1() {
 
   # B chevron shows unstaged changes
   if [ -d .git ]; then
-    git diff-index --quiet HEAD -- && chev_b=$green || chev_b=$blue
+    git diff-index --quiet HEAD -- && chev_b=$green || chev_b=$yellow
   else
     chev_b=$reset
   fi
 
   # C chevron shows unpushed changes
   if [ -d .git ]; then
-    [ -z "$(git log @{u}..)" ] && chev_c=$green || chev_c=$blue
+    [ -z "$(git log @{u}..)" ] && chev_c=$green || chev_c=$yellow
   else
     chev_c=$reset
   fi
