@@ -40,14 +40,14 @@ function __ps1() {
 
   # B chevron shows unstaged changes
   if [ -d .git ]; then
-    git diff-index --quiet HEAD -- && chev_b=$green || chev_b=$yellow
+    git diff-index --quiet HEAD -- 2>/dev/null >/dev/null && chev_b=$green || chev_b=$yellow
   else
     chev_b=$reset
   fi
 
   # C chevron shows unpushed changes
   if [ -d .git ]; then
-    [ -z "$(git log @{u}..)" ] && chev_c=$green || chev_c=$yellow
+    [ -z "$(git log @{u}.. 2>/dev/null >/dev/null)"  ] && chev_c=$green || chev_c=$yellow
   else
     chev_c=$reset
   fi
