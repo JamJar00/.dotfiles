@@ -64,6 +64,12 @@ set signcolumn=yes
 " Scroll before the end of the file
 set scrolloff=8
 
+" Enable persistent undo and move swap files
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+set undofile
+set undodir=~/.vim/undodir
+set directory=~/.vim/backups//
+
 " Install Plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
