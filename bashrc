@@ -47,7 +47,7 @@ function __ps1() {
 
   # C chevron shows unpushed changes
   if [ -d .git ]; then
-    [ -z "$(git log @{u}.. 2>/dev/null >/dev/null)"  ] && chev_c=$green || chev_c=$yellow
+    [ -z "$(git log @{u}.. 2>/dev/null)"  ] && chev_c=$green || chev_c=$yellow
   else
     chev_c=$reset
   fi
