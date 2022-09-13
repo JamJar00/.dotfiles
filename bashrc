@@ -76,6 +76,8 @@ export NVM_DIR="$HOME/.nvm"
 # Make pip installed tools runnable easily
 export PATH="$PATH:$HOME/.local/bin"
 
+export PATH="$PATH:$HOME/.bin"
+
 # Add mcfly
 [ command -v mcfly &> /dev/null ] && eval "$(mcfly init bash)"
 

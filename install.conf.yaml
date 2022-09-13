@@ -12,5 +12,5 @@
 - shell:
   # In WSL 1 the gzip binary doesn't extract correctly and this command fails leaving a nasty looking file in the working drectory too
   # https://askubuntu.com/questions/1417255/trying-to-unzip-a-tgz-in-wsl-but-get-elf-not-found-error
-  - ["curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly", "Installing McFly"]
+  - ["curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin", "Installing McFly"]
 
