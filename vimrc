@@ -97,21 +97,35 @@ call plug#end()
 
 " Coc plugins
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions#implemented-coc-extensions
-if hostname() == "QHSM34493"
-  let g:coc_global_extensions = ['coc-java', 'coc-pyright', 'coc-sh', '@yaegassy/coc-ansible', 'coc-groovy']
+if hostname() == "FXJXWHJ0W0.local"
+  let g:coc_global_extensions = ['coc-sh', 'coc-rust-analyzer']
+  let g:coc_user_config = {
+    \   "languageserver": {
+    \     "terraform": {
+    \       "command": "terraform-ls",
+    \       "args": ["serve"],
+    \       "filetypes": [
+    \         "terraform",
+    \         "tf"
+    \       ],
+    \       "initializationOptions": {},
+    \       "settings": {}
+    \     }
+    \   }
+    \ }
 elseif hostname() == "FEATHERS" || hostname() == "Feathers"
-  let g:coc_global_extensions = ['coc-json', 'coc-pyright', 'coc-svelte', 'coc-xml', 'coc-rls']
+  let g:coc_global_extensions = ['coc-json', 'coc-pyright', 'coc-svelte', 'coc-xml', 'coc-rust-analyzer']
   let g:coc_user_config = {
     \   "languageserver": {
     \     "csharp-ls": {
     \       "command": "csharp-ls",
     \       "filetypes": ["cs"],
     \       "rootPatterns": ["*.csproj", ".vim/", ".git/", ".hg/"]
-    \       }
     \     }
     \   }
+    \ }
 elseif hostname() == "FLUFFLES" || hostname() == "Fluffles"
-  let g:coc_global_extensions = ['coc-rls']
+  let g:coc_global_extensions = ['coc-rust-analyzer']
 endif
 
 " Enable colorscheme
