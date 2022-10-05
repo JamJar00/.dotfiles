@@ -85,7 +85,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'preservim/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'NLKNguyen/papercolor-theme'
-  Plug 'tpope/vim-unimpaired'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
@@ -150,9 +149,6 @@ let NERDTreeShowHidden=1
 
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
-
-" Disable gitgutter's key mappings as I don't use them
-let g:gitgutter_map_keys = 0
 
 " Coc
 " Disables warnings on Windows install
