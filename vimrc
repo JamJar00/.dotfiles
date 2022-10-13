@@ -182,11 +182,8 @@ nnoremap <leader>t :below term<CR>
 " Shortcut to NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
 
-" Map up/down in the autocomplete window to something easier
-inoremap <expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
-inoremap <expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
-nnoremap <expr> <C-j> coc#pum#visible() ? coc#pum#next(1) : "\<C-j>"
-nnoremap <expr> <C-k> coc#pum#visible() ? coc#pum#prev(1) : "\<C-k>"
+" Make Y the same as D
+nmap Y y$
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
