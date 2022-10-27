@@ -89,9 +89,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
-if hostname() == "QHSM34493"
-  Plug 'pearofducks/ansible-vim'
-endif
 call plug#end()
 
 " Coc plugins
@@ -137,12 +134,6 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 colorscheme PaperColor
-
-" Enable ansible on playbooks directory
-if hostname() == "QHSM34493"
-  au BufRead,BufNewFile */playbooks/*.yml set filetype=yaml.ansible
-  au BufRead,BufNewFile */playbooks/*.yaml set filetype=yaml.ansible
-endif
 
 " Make NERDTree show hidden files
 let NERDTreeShowHidden=1
@@ -304,6 +295,13 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+" Commentary mappings to leader
+xmap <leader>c  <Plug>Commentary
+nmap <leader>c  <Plug>Commentary
+omap <leader>c  <Plug>Commentary
+nmap <leader>cc <Plug>CommentaryLine
+nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
 augroup mygroup
   autocmd!
