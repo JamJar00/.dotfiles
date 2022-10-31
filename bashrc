@@ -83,3 +83,5 @@ export PATH="$PATH:$HOME/.bin"
 
 # Fix GPG signing with git not knowing how to ask for a password
 export GPG_TTY=$(tty)
+
+[ -e /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
