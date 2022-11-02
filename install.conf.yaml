@@ -18,4 +18,6 @@
     buckets:
       - extras
     apps:
+      - 7zip
       - powertoys
+      - screentogif
