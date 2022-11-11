@@ -6,7 +6,9 @@ set hlsearch incsearch
 
 " Disable esckeys to avoid slow O commands:
 " https://stackoverflow.com/a/2158610/2755790
-set noesckeys
+if !has('nvim')
+  set noesckeys
+endif
 
 " Set nice tab behaviour
 set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab autoindent
@@ -70,6 +72,11 @@ set undofile
 set undodir=~/.vim/undodir
 set directory=~/.vim/backups//
 
+" nvim clipboard on WSL
+if has('nvim') && system('$PATH')=~ '/mnt/c/WINDOWS'
+  set clipboard=unnamedplus
+endif
+
 " Install Plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -89,6 +96,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
+  if has('nvim')
+    Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  endif
 call plug#end()
 
 " Coc plugins
@@ -314,12 +324,3 @@ augroup mygroup
   " Use autocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 augroup end
-
-" WSL yank support
-let s:clip = '/mnt/c/Windows/System32/clip.exe'
-if executable(s:clip)
-  augroup WSLYank
-    autocmd!
-    autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
-  augroup END
-endif

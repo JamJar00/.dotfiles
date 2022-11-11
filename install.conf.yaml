@@ -8,6 +8,9 @@
     ~/.bashrc: bashrc
     ~/.gitconfig: gitconfig
     ~/.vimrc: vimrc
+    ~/.config/nvim/init.vim:
+        create: true
+        path: vimrc
 
 - shell:
   # In WSL 1 the gzip binary doesn't extract correctly and this command fails leaving a nasty looking file in the working drectory too

@@ -63,7 +63,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-export EDITOR=vim
+export EDITOR=nvim
 
 # Node version manager, if installed
 export NVM_DIR="$HOME/.nvm"
@@ -79,7 +79,7 @@ export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.bin"
 
 # Add mcfly
-[ command -v mcfly &> /dev/null ] && eval "$(mcfly init bash)"
+command -v mcfly &> /dev/null && eval "$(mcfly init bash)"
 
 # Fix GPG signing with git not knowing how to ask for a password
 export GPG_TTY=$(tty)
