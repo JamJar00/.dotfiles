@@ -239,8 +239,8 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>d  <Plug>(coc-format-selected)
+nmap <leader>d  <Plug>(coc-format-selected)
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -312,6 +312,11 @@ nmap <leader>c  <Plug>Commentary
 omap <leader>c  <Plug>Commentary
 nmap <leader>cc <Plug>CommentaryLine
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
+
+" Sort nvim terminal behaviour
+if has("nvim")
+  tnoremap <Esc> <C-\><C-n>
+endif
 
 augroup mygroup
   autocmd!
