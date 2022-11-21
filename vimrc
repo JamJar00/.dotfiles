@@ -313,11 +313,6 @@ omap <leader>c  <Plug>Commentary
 nmap <leader>cc <Plug>CommentaryLine
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
-" Sort nvim terminal behaviour
-if has("nvim")
-  tnoremap <Esc> <C-\><C-n>
-endif
-
 augroup mygroup
   autocmd!
   " Highlight the symbol and its references when holding the cursor.
