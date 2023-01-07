@@ -33,7 +33,8 @@ set autoread
 
 " Make find command find recursively
 " TODO Is this useful now we use Ctrl-P for everything...?
-set path+=**
+" 30/11/2022 Let's find out
+" set path+=**
 
 " That's better
 set belloff=all
@@ -73,7 +74,7 @@ set undodir=~/.vim/undodir
 set directory=~/.vim/backups//
 
 " nvim clipboard on WSL
-if has('nvim') && system('$PATH')=~ '/mnt/c/WINDOWS'
+if has('nvim') && system('$PATH') =~ '/mnt/c/WINDOWS'
   set clipboard=unnamedplus
 endif
 
@@ -98,6 +99,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  endif
+  if hostname() == "FEATHERS" || hostname() == "Feathers"
+    Plug 'leafOfTree/vim-svelte-plugin'
   endif
 call plug#end()
 
