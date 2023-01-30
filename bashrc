@@ -35,6 +35,9 @@ function __ps1() {
   light_blue='\[\033[01;96m\]'
   reset='\[\033[00m\]' 
 
+  # K8s bit
+  k8s="($(kubectl config current-context 2>/dev/null)|$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null))"
+
   # A chevron shows last exit code
   [[ $last_exit == 0 ]] && chev_a=$green || chev_a=$red
 
@@ -52,7 +55,7 @@ function __ps1() {
     chev_c=$reset
   fi
 
-  PS1="\n$green\u@\h $blue\w$light_blue\$(__git_ps1)\n$chev_a›$chev_b›$chev_c›$reset "
+  PS1="\n$green\u@\h $blue\w$light_blue\$(__git_ps1) $blue$k8s\n$chev_a›$chev_b›$chev_c›$reset "
 }
 
 PROMPT_COMMAND="__ps1"
