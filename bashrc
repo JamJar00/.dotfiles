@@ -36,7 +36,9 @@ function __ps1() {
   reset='\[\033[00m\]' 
 
   # K8s bit
-  k8s="($(kubectl config current-context 2>/dev/null)|$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null))"
+  if command -v kubectl &> /dev/null; then
+    k8s="($(kubectl config current-context 2>/dev/null)|$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null))"
+  fi
 
   # A chevron shows last exit code
   [[ $last_exit == 0 ]] && chev_a=$green || chev_a=$red
