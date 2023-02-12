@@ -73,9 +73,10 @@ set undofile
 set undodir=~/.vim/undodir
 set directory=~/.vim/backups//
 
-" nvim clipboard on WSL
-if has('nvim') && system('$PATH') =~ '/mnt/c/WINDOWS'
+" nvim clipboard & browser linking on WSL
+if has('nvim') && system('$PATH') =~ '/mnt/c/Windows'
   set clipboard=unnamedplus
+  let g:netrw_browsex_viewer="cmd.exe /C start"
 endif
 
 " Install Plug
