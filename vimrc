@@ -328,4 +328,7 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   " Use autocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+  " Automatically remove trailing spaces
+  autocmd BufWritePre * :%s/\s\+$//e
 augroup end
