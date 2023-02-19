@@ -33,7 +33,7 @@ function __ps1() {
   yellow='\[\033[01;33m\]'
   blue='\[\033[01;34m\]'
   light_blue='\[\033[01;96m\]'
-  reset='\[\033[00m\]' 
+  reset='\[\033[00m\]'
 
   # K8s bit
   if command -v kubectl &> /dev/null; then
@@ -67,6 +67,9 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+# And set the colours to not awful
+export LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'
 
 export EDITOR=nvim
 
