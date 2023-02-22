@@ -17,6 +17,9 @@
   # https://askubuntu.com/questions/1417255/trying-to-unzip-a-tgz-in-wsl-but-get-elf-not-found-error
   - ["command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin", "Installing McFly"]
 
+- shell:
+  - ["cp ./windows-terminal.json /mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json", "Copying in Windows Terminal settings"]
+
 - scoop:
     buckets:
       - extras
