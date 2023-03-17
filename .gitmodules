@@ -5,3 +5,9 @@
 [submodule "dotbot-scoop"]
 	path = dotbot-scoop
 	url = git@github.com:JamJar00/dotbot-scoop.git
+[submodule "dotbot-brew"]
+	path = dotbot-brew
+	url = https://github.com/d12frosted/dotbot-brew.git
+[submodule "dotbot-conditional"]
+	path = dotbot-conditional
+	url = https://gitlab.com/gnfzdz/dotbot-conditional.git
