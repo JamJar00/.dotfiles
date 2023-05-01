@@ -98,6 +98,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
+  Plug 'lambdalisue/fern.vim'
+  Plug 'yuki-yano/fern-preview.vim'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
   endif
@@ -152,6 +154,21 @@ colorscheme PaperColor
 
 " Make NERDTree show hidden files
 let NERDTreeShowHidden=1
+
+" Add preview to Fern
+let g:fern#default_hidden=1
+
+function! s:fern_settings() abort
+  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
+  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
+  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
+  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
+endfunction
+
+augroup fern-settings
+  autocmd!
+  autocmd FileType fern call s:fern_settings()
+augroup END
 
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
