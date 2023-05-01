@@ -183,7 +183,11 @@ let g:lightline = {
 let mapleader = " "
 
 " Shortcut to terminal
-nnoremap <leader>t :below term<CR>
+if has('nvim')
+  nnoremap <leader>t :below split <bar> term<CR>a
+else
+  nnoremap <leader>t :below term<CR>a
+endif
 
 " Shortcut to NERDTree
 nnoremap <leader>nt :NERDTreeToggle<CR>
