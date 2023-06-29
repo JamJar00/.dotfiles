@@ -19,22 +19,21 @@
         - bash
         - bash-completion
         - docker
-        - glow
         - gnupg
         - helm
         - jq
         - kubectx
         - kubernetes-cli
         - mcfly
-        - mdp
         - minikube
-        - nvim --with-python
+        - neovim
         - tfenv
         - watch
 
       - cask:
         - iterm2
         - karabiner-elements
+        - wacom-tablet
     else:
       - shell:
         # In WSL 1 the gzip binary doesn't extract correctly and this command fails leaving a nasty looking file in the working drectory too
@@ -56,3 +55,7 @@
             - screentogif
             - win32yank
             # TODO Windows Terminal
+
+- shell:
+  - [ "pip3 install pynvim", "Installing nvim Python library"]
+  - [ "nvim --headless +PlugInstall +qall", "Installing nvim plugins"]
