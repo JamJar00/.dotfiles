@@ -43,9 +43,6 @@
       - shell:
         - ["cp ./windows-terminal.json /mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json", "Copying in Windows Terminal settings"]
 
-      - shell:
-        - ["command -v poetry &> /dev/null || curl -sSL https://install.python-poetry.org | python3 -", "Installing Poetry"]
-
       - scoop:
           buckets:
             - extras
@@ -59,3 +56,6 @@
 - shell:
   - [ "pip3 install pynvim", "Installing nvim Python library"]
   - [ "nvim --headless +PlugInstall +qall", "Installing nvim plugins"]
+
+- shell:
+  - ["command -v poetry &> /dev/null || curl -sSL https://install.python-poetry.org | python3 -", "Installing Poetry"]
