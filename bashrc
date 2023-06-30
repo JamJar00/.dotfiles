@@ -35,6 +35,11 @@ function __ps1() {
   light_blue='\[\033[01;96m\]'
   reset='\[\033[00m\]'
 
+  # Git bit
+  if [[ -d ".git" ]]; then
+    git_status=$(git branch --show-current)
+  fi
+
   # K8s bit
   if command -v kubectl &> /dev/null; then
     k8s="($(kubectl config current-context 2>/dev/null)|$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null))"
@@ -57,7 +62,7 @@ function __ps1() {
     chev_c=$reset
   fi
 
-  PS1="\n$green\u@\h $blue\w$light_blue\$(__git_ps1) $blue$k8s\n$chev_a›$chev_b›$chev_c›$reset "
+  PS1="\n$green\u@\h $blue\w$light_blue $git_status $blue$k8s\n$chev_a›$chev_b›$chev_c›$reset "
 }
 
 PROMPT_COMMAND="__ps1"
@@ -92,4 +97,6 @@ command -v mcfly &> /dev/null && eval "$(mcfly init bash)"
 # Fix GPG signing with git not knowing how to ask for a password
 export GPG_TTY=$(tty)
 
+# [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
 [ -e /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
+# command -v kubectl &> /dev/null && source <(kubectl completion bash)
