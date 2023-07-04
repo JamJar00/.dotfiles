@@ -15,6 +15,11 @@
 - conditional:
     if: test "$(uname)" = "Darwin"
     then:
+      - link:
+          ~/.config/karabiner:
+            create: true
+            path: karabiner
+
       - brew:
         - bash
         - bash-completion
