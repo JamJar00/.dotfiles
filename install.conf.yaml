@@ -39,6 +39,7 @@
         - iterm2
         - karabiner-elements
         - wacom-tablet
+        - caffeine
     else:
       - shell:
         # In WSL 1 the gzip binary doesn't extract correctly and this command fails leaving a nasty looking file in the working drectory too

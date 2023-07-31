@@ -100,6 +100,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim'
   Plug 'lambdalisue/fern.vim'
   Plug 'yuki-yano/fern-preview.vim'
+  Plug 'hashivim/vim-terraform'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
   endif
@@ -151,6 +152,10 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 colorscheme PaperColor
+
+" Better terraform
+let g:terraform_fmt_on_save=1
+let g:terraform_align=1
 
 " Make NERDTree show hidden files
 let NERDTreeShowHidden=1
