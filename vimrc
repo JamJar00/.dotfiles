@@ -212,7 +212,10 @@ else
 endif
 
 " Shortcut to NERDTree
-nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nt :NERDTreeFind<CR>
+
+" Shortcut for LeaderF ripgrep
+noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
 
 " Make Y the same as D
 nmap Y y$
