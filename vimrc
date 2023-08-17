@@ -31,11 +31,6 @@ set laststatus=2
 " Set auto reload if the file on disk changes
 set autoread
 
-" Make find command find recursively
-" TODO Is this useful now we use Ctrl-P for everything...?
-" 30/11/2022 Let's find out
-" set path+=**
-
 " That's better
 set belloff=all
 
@@ -94,15 +89,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'preservim/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'NLKNguyen/papercolor-theme'
-  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
-  Plug 'lambdalisue/fern.vim'
-  Plug 'yuki-yano/fern-preview.vim'
-  Plug 'hashivim/vim-terraform'
+  if hostname() == "FXJXWHJ0W0.local"
+    Plug 'hashivim/vim-terraform'
+  endif
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  else
+    Plug 'ctrlpvim/ctrlp.vim'
   endif
   if hostname() == "FEATHERS" || hostname() == "Feathers"
     Plug 'leafOfTree/vim-svelte-plugin'
@@ -159,21 +155,6 @@ let g:terraform_align=1
 
 " Make NERDTree show hidden files
 let NERDTreeShowHidden=1
-
-" Add preview to Fern
-let g:fern#default_hidden=1
-
-function! s:fern_settings() abort
-  nmap <silent> <buffer> p     <Plug>(fern-action-preview:toggle)
-  nmap <silent> <buffer> <C-p> <Plug>(fern-action-preview:auto:toggle)
-  nmap <silent> <buffer> <C-d> <Plug>(fern-action-preview:scroll:down:half)
-  nmap <silent> <buffer> <C-u> <Plug>(fern-action-preview:scroll:up:half)
-endfunction
-
-augroup fern-settings
-  autocmd!
-  autocmd FileType fern call s:fern_settings()
-augroup END
 
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
