@@ -26,29 +26,42 @@ shopt -s checkwinsize
 
 # PS1 setup
 function __ps1() {
-  last_exit=$?
+  local last_exit=$?
 
-  red='\[\033[01;31m\]'
-  green='\[\033[01;32m\]'
-  yellow='\[\033[01;33m\]'
-  blue='\[\033[01;34m\]'
-  light_blue='\[\033[01;96m\]'
-  reset='\[\033[00m\]'
+  local red='\033[01;31m'
+  local green='\033[01;32m'
+  local yellow='\033[01;33m'
+  local blue='\033[01;34m'
+  local light_blue='\033[01;96m'
+  local reset='\033[00m'
 
   # Git bit
   if [[ -d ".git" ]]; then
-    git_status=$(git branch --show-current)
+    local git_status=" $(git branch --show-current)"
   fi
 
   # K8s bit
   if command -v kubectl &> /dev/null; then
-    k8s="($(kubectl config current-context 2>/dev/null)|$(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null))"
+    local k8s=" $(kubectl config current-context 2>/dev/null) $(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
+  fi
+
+  # AWS bit
+  local awss
+  if [[ -n "$AWS_PROFILE" ]];then
+    awss=" ${AWS_PROFILE}"
+  fi
+
+  local region="${AWS_REGION:-${AWS_DEFAULT_REGION:-$AWS_PROFILE_REGION}}"
+  if [[ -n "$region" ]]; then
+    awss="$awss ${region}"
   fi
 
   # A chevron shows last exit code
+  local chev_a
   [[ $last_exit == 0 ]] && chev_a=$green || chev_a=$red
 
   # B chevron shows unstaged changes
+  local chev_b
   if [ -d .git ]; then
     git diff-index --quiet HEAD -- 2>/dev/null >/dev/null && chev_b=$green || chev_b=$yellow
   else
@@ -56,13 +69,14 @@ function __ps1() {
   fi
 
   # C chevron shows unpushed changes
+  local chev_c
   if [ -d .git ]; then
     [ -z "$(git log @{u}.. 2>/dev/null)"  ] && chev_c=$green || chev_c=$yellow
   else
     chev_c=$reset
   fi
 
-  PS1="\n$green\u@\h $blue\w$light_blue $git_status $blue$k8s\n$chev_a›$chev_b›$chev_c›$reset "
+  PS1="\n\[$green\]\w\[$light_blue\]$git_status\[$blue\]$k8s\[$red\]$awss\n\[$chev_a\]›\[$chev_b\]›\[$chev_c\]›\[$reset\] "
 }
 
 PROMPT_COMMAND="__ps1"
