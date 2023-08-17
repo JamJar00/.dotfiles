@@ -22,7 +22,7 @@
 
       - brew:
         - bash
-        - bash-completion
+        - bash-completion@2
         - docker
         - gnupg
         - helm

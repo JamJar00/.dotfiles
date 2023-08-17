@@ -111,6 +111,8 @@ command -v mcfly &> /dev/null && eval "$(mcfly init bash)"
 # Fix GPG signing with git not knowing how to ask for a password
 export GPG_TTY=$(tty)
 
-# [[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && source "/usr/local/etc/profile.d/bash_completion.sh"
-[ -e /usr/lib/git-core/git-sh-prompt ] && source /usr/lib/git-core/git-sh-prompt
-# command -v kubectl &> /dev/null && source <(kubectl completion bash)
+# Add completion for Homebrew packages
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
+# Add Kubectl completion
+command -v kubectl &> /dev/null && source <(kubectl completion bash)
