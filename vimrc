@@ -149,6 +149,9 @@ let g:PaperColor_Theme_Options = {
   \ }
 colorscheme PaperColor
 
+" Fix Coc autocomplete being unreadable
+highlight CocMenuSel ctermbg=125
+
 " Better terraform
 let g:terraform_fmt_on_save=1
 let g:terraform_align=1
@@ -177,6 +180,7 @@ let g:lightline = {
   \   'left': [ [ 'mode', 'paste' ],
   \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
   \ },
+  \ 'colorscheme': 'PaperColor',
   \ 'component_function': {
   \   'cocstatus': 'coc#status'
   \ },
@@ -200,6 +204,9 @@ noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
 
 " Make Y the same as D
 nmap Y y$
+
+" Remap up/down in LeaderF
+let g:Lf_CommandMap = {'<C-K>': ['<C-P>'], '<C-J>': ['<C-N>']}
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
