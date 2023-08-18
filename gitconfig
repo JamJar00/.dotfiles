@@ -11,3 +11,5 @@
 [push]
 	default = current
 	autoSetupRemote = true
+[include]
+    path = .gitconfig.local

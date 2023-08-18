@@ -116,3 +116,6 @@ export GPG_TTY=$(tty)
 
 # Add Kubectl completion
 command -v kubectl &> /dev/null && source <(kubectl completion bash)
+
+# Include local bashrc file
+[ -s "$HOME/.bashrc.local" ] && \. "$HOME/.bashrc.local"
