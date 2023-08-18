@@ -92,6 +92,12 @@ export LS_COLORS=$LS_COLORS:'tw=00;33:ow=01;33:'
 
 export EDITOR=nvim
 
+function dotfiles-update() {
+  dotbot_dir=$(dirname -- $(readlink -f -- ~/.bashrc))
+  git -C "${dotbot_dir}" pull --rebase
+  source ~/.bashrc
+}
+
 # Node version manager, if installed
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
