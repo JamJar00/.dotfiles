@@ -36,7 +36,7 @@ function __ps1() {
   local reset='\033[00m'
 
   # Git bit
-  if [[ -d ".git" ]]; then
+  if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ] ; then
     local git_status=" $(git branch --show-current)"
   fi
 
