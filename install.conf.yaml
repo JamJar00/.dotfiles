@@ -9,8 +9,11 @@
     ~/.gitconfig: gitconfig
     ~/.vimrc: vimrc
     ~/.config/nvim/init.vim:
-        create: true
-        path: vimrc
+      create: true
+      path: vimrc
+    ~/.config/fish/config.fish:
+      create: true
+      path: config.fish
 
 - conditional:
     if: test "$(uname)" = "Darwin"

@@ -108,7 +108,7 @@ call plug#end()
 " Coc plugins
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions#implemented-coc-extensions
 if hostname() == "FXJXWHJ0W0.local"
-  let g:coc_global_extensions = ['coc-sh', 'coc-rust-analyzer']
+  let g:coc_global_extensions = ['coc-sh', 'coc-rust-analyzer', 'coc-fish']
   let g:coc_user_config = {
     \   "languageserver": {
     \     "terraform": {
