@@ -86,7 +86,6 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 \| endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'preservim/nerdtree'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'NLKNguyen/papercolor-theme'
   Plug 'airblade/vim-gitgutter'
@@ -97,6 +96,8 @@ call plug#begin('~/.vim/plugged')
   endif
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+    Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
+    Plug 'nvim-tree/nvim-tree.lua'
   else
     Plug 'ctrlpvim/ctrlp.vim'
   endif
@@ -156,11 +157,25 @@ highlight CocMenuSel ctermbg=125
 let g:terraform_fmt_on_save=1
 let g:terraform_align=1
 
-" Make NERDTree show hidden files
-let NERDTreeShowHidden=1
-
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
+
+" NvimTree
+if has('nvim')
+  let g:loaded_netrw = 1
+  let g:loaded_netrwPlugin = 1
+  lua << EOF
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+})
+EOF
+endif
 
 " Coc
 " Disables warnings on Windows install
