@@ -216,6 +216,7 @@ nnoremap <leader>nt :NERDTreeFind<CR>
 
 " Shortcut for LeaderF ripgrep
 noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
+noremap <leader>R :<C-U>LeaderfRgRecall<CR>
 
 " Make Y the same as D
 nmap Y y$
