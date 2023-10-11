@@ -36,7 +36,7 @@ if status is-interactive
 
     # B chevron shows unstaged changes
     if [ -d .git ]
-      if [ git diff-index --quiet HEAD -- 2>/dev/null >/dev/null ]
+      if git diff-index --quiet HEAD -- 2>/dev/null >/dev/null
         echo -n (set_color green)❯
       else
         echo -n (set_color yellow)❯
@@ -58,5 +58,22 @@ if status is-interactive
 
     echo " "
   end
+
+  set -x EDITOR nvim
+  set -x GPG_TTY (tty)
+
+  function dotfiles-update
+    set -l dotbot_dir (dirname -- (readlink -f -- ~/.bashrc))
+    git -C $dotbot_dir pull --rebase
+    source ~/.config/fish/config.fish
+  end
+
+  fish_add_path ~/.local/bin
+  fish_add_path ~/.bin
+  fish_add_path /opt/homebrew/bin
+
+  command -v mcfly &> /dev/null && mcfly init fish | source
+
+  [ -s ~/.config/fish/config.fish.local ] && source ~/.config/fish/config.fish.local
 end
 
