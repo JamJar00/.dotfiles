@@ -109,7 +109,7 @@ call plug#end()
 " Coc plugins
 " https://github.com/neoclide/coc.nvim/wiki/Using-coc-extensions#implemented-coc-extensions
 if hostname() == "FXJXWHJ0W0.local"
-  let g:coc_global_extensions = ['coc-sh', 'coc-rust-analyzer', 'coc-fish']
+  let g:coc_global_extensions = ['coc-sh', 'coc-rust-analyzer', 'coc-fish', 'coc-pyright']
   let g:coc_user_config = {
     \   "languageserver": {
     \     "terraform": {
@@ -173,6 +173,9 @@ require("nvim-tree").setup({
   renderer = {
     group_empty = true,
   },
+  git = {
+    ignore = false
+  }
 })
 EOF
 endif
