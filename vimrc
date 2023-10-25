@@ -214,8 +214,12 @@ else
   nnoremap <leader>t :below term<CR>a
 endif
 
-" Shortcut to NERDTree
-nnoremap <leader>nt :NERDTreeFind<CR>
+" Shortcut to NERDTree/NvimTree
+if has('nvim')
+  nnoremap <leader>nt :NvimTreeFindFileToggle<CR>
+else
+  nnoremap <leader>nt :NERDTreeFind<CR>
+endif
 
 " Shortcut for LeaderF ripgrep
 noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
