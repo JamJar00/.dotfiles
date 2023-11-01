@@ -1,10 +1,12 @@
 if status is-interactive
   function fish_prompt
+    set -l last_exit $status
+
     echo -n \n(set_color green)(prompt_pwd)
 
     # Git bit
     if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
-      echo -n " "(set_color brblue)(git branch --show-current)
+      echo -n " "(set_color brblue)(fish_git_prompt)
     end
 
     # K8s bit
@@ -28,16 +30,20 @@ if status is-interactive
     echo
 
     # A chevron shows last exit code
-    if [ $status = 0 ]
+    if [ $last_exit = 0 ]
       echo -n (set_color green)❯
     else
       echo -n (set_color red)❯
     end
 
     # B chevron shows unstaged changes
-    if [ -d .git ]
+    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
       if git diff-index --quiet HEAD -- 2>/dev/null >/dev/null
-        echo -n (set_color green)❯
+        if [ -z "$(git status --untracked-files --porcelain)" ]
+          echo -n (set_color green)❯
+        else
+          echo -n (set_color blue)❯
+        end
       else
         echo -n (set_color yellow)❯
       end
@@ -46,7 +52,7 @@ if status is-interactive
     end
 
     # C chevron shows unpushed changes
-    if [ -d .git ]
+    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
       if [ -z "$(git log @{u}.. 2>/dev/null)" ]
         echo -n (set_color green)❯
       else
