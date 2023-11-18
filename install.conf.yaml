@@ -53,6 +53,7 @@
 
       - shell:
         - ["cp ./windows-terminal.json /mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json", "Copying in Windows Terminal settings"]
+        - ["curl https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/CascadiaCode.zip", "Downloading font [install this manually]"]
 
       - shell:
         - ["sudo add-apt-repository ppa:neovim-ppa/unstable", "Add unstable apt neovim repo"]

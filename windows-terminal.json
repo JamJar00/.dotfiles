@@ -32,6 +32,12 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{d7b20cea-47a9-518c-95a4-c8bd91e2e1c6}",
+    "newTabMenu":
+    [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
     "profiles":
     {
         "defaults": {},
@@ -59,6 +65,10 @@
             {
                 "bellStyle": "window",
                 "colorScheme": "One Half Dark",
+                "font":
+                {
+                    "face": "CaskaydiaCove Nerd Font Mono"
+                },
                 "guid": "{d7b20cea-47a9-518c-95a4-c8bd91e2e1c6}",
                 "hidden": false,
                 "name": "Ubuntu 22.04.2 LTS",
