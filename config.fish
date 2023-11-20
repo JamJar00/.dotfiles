@@ -51,10 +51,14 @@ if status is-interactive
       echo -n (set_color normal)❯
     end
 
-    # C chevron shows unpushed changes
+    # C chevron shows unpushed or unpulled changes
     if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
       if [ -z "$(git log @{u}.. 2>/dev/null)" ]
-        echo -n (set_color green)❯
+        if [ "$(git rev-parse HEAD)" = "$(git rev-parse @{u})" ]
+          echo -n (set_color green)❯
+        else
+          echo -n (set_color blue)❯
+        end
       else
         echo -n (set_color yellow)❯
       end
