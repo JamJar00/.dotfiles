@@ -58,7 +58,7 @@
       - shell:
         - ["sudo add-apt-repository ppa:neovim-ppa/unstable", "Add unstable apt neovim repo"]
         - ["sudo apt update", "Apt update!"]
-        - ["sudo apt install neovim", "Neovimmmmmm!"]
+        - ["sudo apt install -y neovim", "Neovimmmmmm!"]
 
       - scoop:
           buckets:
