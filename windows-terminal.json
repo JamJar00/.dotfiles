@@ -1,82 +1,77 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
+    "actions": 
     [
         {
-            "command":
+            "command": 
             {
                 "action": "copy",
                 "singleLine": false
             },
-            "keys": "ctrl+shift+c"
+            "keys": "ctrl+c"
         },
         {
             "command": "paste",
-            "keys": "ctrl+shift+v"
+            "keys": "ctrl+v"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
-        },
-        {
-            "command":
+            "command": 
             {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
-    "defaultProfile": "{d7b20cea-47a9-518c-95a4-c8bd91e2e1c6}",
-    "newTabMenu":
+    "defaultProfile": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
+    "newTabMenu": 
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles":
+    "profiles": 
     {
         "defaults": {},
-        "list":
+        "list": 
         [
             {
                 "bellStyle": "window",
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Windows PowerShell"
             },
             {
                 "bellStyle": "window",
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
             },
             {
                 "bellStyle": "window",
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-                "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
-            },
-            {
-                "bellStyle": "window",
                 "colorScheme": "One Half Dark",
-                "font":
+                "font": 
                 {
                     "face": "CaskaydiaCove Nerd Font Mono"
                 },
-                "guid": "{d7b20cea-47a9-518c-95a4-c8bd91e2e1c6}",
+                "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
                 "hidden": false,
-                "name": "Ubuntu 22.04.2 LTS",
+                "name": "Ubuntu 22.04.3 LTS",
                 "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
             }
         ]
     },
-    "schemes":
+    "schemes": 
     [
         {
             "background": "#0C0C0C",
@@ -166,7 +161,7 @@
             "name": "One Half Light",
             "purple": "#A626A4",
             "red": "#E45649",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#4F525D",
             "white": "#FAFAFA",
             "yellow": "#C18301"
         },
@@ -212,7 +207,7 @@
             "name": "Solarized Light",
             "purple": "#D33682",
             "red": "#DC322F",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#073642",
             "white": "#EEE8D5",
             "yellow": "#B58900"
         },
@@ -258,7 +253,7 @@
             "name": "Tango Light",
             "purple": "#75507B",
             "red": "#CC0000",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#555753",
             "white": "#D3D7CF",
             "yellow": "#C4A000"
         },

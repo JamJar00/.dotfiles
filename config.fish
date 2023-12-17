@@ -53,6 +53,7 @@ if status is-interactive
 
     # C chevron shows unpushed or unpulled changes
     if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
+      # TODO if not upstream/branch has no upstream show blue
       if [ -z "$(git log @{u}.. 2>/dev/null)" ]
         if [ "$(git rev-parse HEAD)" = "$(git rev-parse @{u})" ]
           echo -n (set_color green)❯
