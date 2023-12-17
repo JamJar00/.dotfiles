@@ -4,8 +4,10 @@ if status is-interactive
 
     echo -n \n(set_color green)(prompt_pwd)
 
+    set -l is_in_git "$(git rev-parse --is-inside-work-tree 2>/dev/null)"
+
     # Git bit
-    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
+    if [ $is_in_git = "true" ]
       echo -n " "(set_color brblue)(fish_git_prompt)
     end
 
@@ -37,9 +39,9 @@ if status is-interactive
     end
 
     # B chevron shows unstaged changes
-    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
-      if git diff-index --quiet HEAD -- 2>/dev/null >/dev/null
-        if [ -z "$(git status --untracked-files --porcelain)" ]
+    if [ $is_in_git = "true" ]
+      if git diff --quiet && git diff --cached --quiet
+        if [ -z "$(git ls-files --other --directory --exclude-standard | sed q1)" ]
           echo -n (set_color green)❯
         else
           echo -n (set_color blue)❯
@@ -52,7 +54,7 @@ if status is-interactive
     end
 
     # C chevron shows unpushed or unpulled changes
-    if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
+    if [ $is_in_git = "true" ]
       # TODO if not upstream/branch has no upstream show blue
       if [ -z "$(git log @{u}.. 2>/dev/null)" ]
         if [ "$(git rev-parse HEAD)" = "$(git rev-parse @{u})" ]
