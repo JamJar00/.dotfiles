@@ -41,7 +41,7 @@ if status is-interactive
     # B chevron shows unstaged changes
     if [ $is_in_git = "true" ]
       if git diff --quiet && git diff --cached --quiet
-        if [ -z "$(git ls-files --other --directory --exclude-standard | sed q1)" ]
+        if [ -z "$(git ls-files --other --directory --exclude-standard)" ]
           echo -n (set_color green)❯
         else
           echo -n (set_color blue)❯
