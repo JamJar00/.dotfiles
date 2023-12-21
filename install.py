@@ -65,4 +65,4 @@ envbot.shell("usermod -s $(which fish) $(whoami)")
 envbot.pip.install("pynvim")
 envbot.shell("nvim --headless +PlugInstall +qall")
 
-envbot.summarise()
+envbot.exit()
