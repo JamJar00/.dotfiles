@@ -41,9 +41,6 @@ if envbot.platform == "Darwin":
 else:
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
 
-    envbot.copy("./windows-terminal.json", "/mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json")
-    envbot.download("https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/CascadiaCode.zip", "CascadiaCode.zip") # TODO echo that a manual action needs to happen
-
     # Install Neovim
     envbot.apt.add_repository("ppa:neovim-ppa/unstable")
     envbot.apt.install("neovim")
@@ -57,9 +54,16 @@ else:
     envbot.scoop.install("powertoys")
     envbot.scoop.install("screentogif")
     envbot.scoop.install("win32yank")
+    envbot.scoop.install("nodejs")
     # TODO Windows Terminal
 
-envbot.shell("usermod -s $(which fish) $(whoami)")
+    # Terminal Font
+    envbot.scoop.add_bucket("nerd-fonts")
+    envbot.scoop.install("CascadiaCode-NF-Mono")
+
+    envbot.copy("./windows-terminal.json", "/mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json", overwrite=True)
+
+envbot.shell("sudo usermod -s $(which fish) $(whoami)")
 # envbot.shell("chsh $(whoami) --shell $(which fish)")
 
 envbot.pip.install("pynvim")
