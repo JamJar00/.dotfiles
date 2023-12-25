@@ -28,6 +28,7 @@ if envbot.platform == "Darwin":
     envbot.brew.install("mcfly")
     envbot.brew.install("minikube")
     envbot.brew.install("neovim")
+    envbot.brew.install("node")
     envbot.brew.install("ripgrep")
     envbot.brew.install("tfenv")
     envbot.brew.install("watch")
@@ -40,6 +41,8 @@ if envbot.platform == "Darwin":
 
 else:
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
+
+    envbot.apt.install("nodejs")
 
     # Install Neovim
     envbot.apt.add_repository("ppa:neovim-ppa/unstable")
@@ -54,7 +57,6 @@ else:
     envbot.scoop.install("powertoys")
     envbot.scoop.install("screentogif")
     envbot.scoop.install("win32yank")
-    envbot.scoop.install("nodejs")
     # TODO Windows Terminal
 
     # Terminal Font
