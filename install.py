@@ -5,6 +5,7 @@ import envbot.apt
 import envbot.brew
 import envbot.pip
 import envbot.scoop
+import envbot.util
 
 envbot.init()
 
@@ -65,8 +66,7 @@ else:
 
     envbot.copy("./windows-terminal.json", "/mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json", overwrite=True)
 
-envbot.shell("sudo usermod -s $(which fish) $(whoami)")
-# envbot.shell("chsh $(whoami) --shell $(which fish)")
+envbot.chsh("fish")
 
 envbot.pip.install("pynvim")
 envbot.shell("nvim --headless +PlugInstall +qall")
