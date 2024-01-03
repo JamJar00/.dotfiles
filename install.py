@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-import os
-
 import envbot
 import envbot.apt
 import envbot.brew
+import envbot.defaults
 import envbot.pip
 import envbot.scoop
 import envbot.util
@@ -43,9 +42,9 @@ if envbot.platform == "Darwin":
     envbot.brew.install("font-hack-nerd-font", True) # Terminal font required for NvimTree icons
 
     # Specify the preferences directory
-    envbot.shell("defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string \"" + os.getcwd() + "/iterm2\"")
+    envbot.defaults.write("com.googlecode.iterm2.plist", "PrefsCustomFolder", envbot.cwd + "/iterm2")
     # Tell iTerm2 to use the custom preferences in the directory
-    envbot.shell("defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true")
+    envbot.defaults.write("com.googlecode.iterm2.plist", "LoadPrefsFromCustomFolder", True)
 else:
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
 
