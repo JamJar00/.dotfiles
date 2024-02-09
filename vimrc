@@ -86,7 +86,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 \| endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'NLKNguyen/papercolor-theme'
+  Plug 'mhartington/oceanic-next'
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
@@ -108,22 +108,9 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " Enable colorscheme
-set background=dark
-let g:PaperColor_Theme_Options = {
-  \   'theme': {
-  \     'default': {
-  \       'transparent_background': 1
-  \     }
-  \   }
-  \ }
-colorscheme PaperColor
-
-" Fix Coc autocomplete being unreadable
-highlight CocMenuSel ctermbg=125
-
-" Better terraform
-let g:terraform_fmt_on_save=1
-let g:terraform_align=1
+let g:oceanic_next_terminal_bold = 1
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
 
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
@@ -151,8 +138,7 @@ EOF
   lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  -- TODO markdown and markdown_inline don't work with current colourscheme :(
-  ensure_installed = { "bash", "diff", "fish", "gitcommit", "git_config", "gitignore", "json", "lua", "make", "python", "rust", "terraform", "vim", "vimdoc", "yaml" },
+  ensure_installed = { "bash", "diff", "fish", "gitcommit", "git_config", "gitignore", "json", "lua", "make", "markdown", "markdown_inline", "python", "rust", "terraform", "vim", "vimdoc", "yaml" },
 
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
