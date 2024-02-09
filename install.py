@@ -30,9 +30,9 @@ if envbot.platform == "Darwin":
     envbot.brew.install("mcfly")
     envbot.brew.install("minikube")
     envbot.brew.install("neovim")
-    envbot.brew.install("node")
     envbot.brew.install("ripgrep")
     envbot.brew.install("tfenv")
+    envbot.brew.install("terraform-ls")
     envbot.brew.install("watch")
 
     envbot.brew.install("iterm2", True)
@@ -47,8 +47,6 @@ if envbot.platform == "Darwin":
     envbot.defaults.write("com.googlecode.iterm2.plist", "LoadPrefsFromCustomFolder", True)
 else:
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
-
-    envbot.apt.install("nodejs")
 
     # Install Neovim
     envbot.apt.add_repository("ppa:neovim-ppa/unstable")
@@ -75,5 +73,7 @@ envbot.chsh("fish")
 
 envbot.pip.install("pynvim")
 envbot.shell("nvim --headless +PlugInstall +qall")
+
+envbot.pip.install("pyright")
 
 envbot.exit()

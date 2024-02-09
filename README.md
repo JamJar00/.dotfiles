@@ -4,4 +4,4 @@ Easily installable and manageable dotfiles using [dotbot](https://github.com/ani
 Also does some other fun stuff like install [McFly](https://github.com/cantino/mcfly).
 
 ## Usage
-Clone the repository and run `./install`. See the dotbot docs for more information on flags & args.
+Clone the repository with `git clone git@github.com:JamJar00/.dotfiles.git --recurse-submodules` and run `./install.py`.
