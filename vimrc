@@ -98,6 +98,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'neovim/nvim-lspconfig'
   else
     Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'preservim/nerdtree'
     if hostname() == "FXJXWHJ0W0.local"
       Plug 'hashivim/vim-terraform'
     endif
@@ -111,6 +112,34 @@ call plug#end()
 let g:oceanic_next_terminal_bold = 1
 let g:oceanic_next_terminal_italic = 1
 colorscheme OceanicNext
+
+let g:lightline = {
+  \ 'colorscheme': 'PaperColor'
+  \ }
+
+" Set leader to space for ease of access
+let mapleader = " "
+
+" Shortcut to terminal
+if has('nvim')
+  nnoremap <leader>t :below split <bar> term<CR>a
+else
+  nnoremap <leader>t :below term<CR>a
+endif
+"
+" Shortcut to NERDTree/NvimTree
+if has('nvim')
+  nnoremap <leader>nt :NvimTreeFindFileToggle<CR>
+else
+  nnoremap <leader>nt :NERDTreeFind<CR>
+endif
+"
+" Shortcut for LeaderF ripgrep
+noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
+noremap <leader>R :<C-U>LeaderfRgRecall<CR>
+
+" Make Y the same as D
+nmap Y y$
 
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
