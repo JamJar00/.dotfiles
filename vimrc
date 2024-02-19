@@ -142,6 +142,9 @@ endif
 " Shortcut for LeaderF ripgrep
 noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
 noremap <leader>R :<C-U>LeaderfRgRecall<CR>
+"
+" Remap up/down in LeaderF
+let g:Lf_CommandMap = {'<C-K>': ['<C-P>'], '<C-J>': ['<C-N>']}
 
 " Make Y the same as D
 nmap Y y$
