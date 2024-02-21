@@ -152,6 +152,13 @@ nmap Y y$
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
 
+" Commentary mappings to leader
+xmap <leader>c  <Plug>Commentary
+nmap <leader>c  <Plug>Commentary
+omap <leader>c  <Plug>Commentary
+nmap <leader>cc <Plug>CommentaryLine
+nmap <leader>cu <Plug>Commentary<Plug>Commentary
+
 " NvimTree
 if has('nvim')
   let g:loaded_netrw = 1
