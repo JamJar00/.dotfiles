@@ -5,7 +5,7 @@ import envbot.brew
 import envbot.defaults
 import envbot.pip
 import envbot.scoop
-import envbot.util
+import envbot.winget
 
 
 envbot.init()
@@ -66,6 +66,9 @@ else:
     # Terminal Font
     envbot.scoop.add_bucket("nerd-fonts")
     envbot.scoop.install("CascadiaCode-NF-Mono")
+
+    # Windows store apps
+    envbot.winget.install("9WZDNCRFJJ3T") # Huetro for Hue
 
     envbot.copy("./windows-terminal.json", "/mnt/c/Users/jamie/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json", overwrite=True)
 
