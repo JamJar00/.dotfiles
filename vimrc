@@ -90,6 +90,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
+  Plug 'rafamadriz/friendly-snippets'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
@@ -100,7 +101,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/vim-vsnip'
   else
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'preservim/nerdtree'
