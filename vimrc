@@ -104,6 +104,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/vim-vsnip'
+    Plug 'folke/trouble.nvim'
   else
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'preservim/nerdtree'
@@ -134,20 +135,29 @@ if has('nvim')
 else
   nnoremap <leader>t :below term<CR>a
 endif
-"
+
 " Shortcut to NERDTree/NvimTree
 if has('nvim')
   nnoremap <leader>nt :NvimTreeFindFileToggle<CR>
 else
   nnoremap <leader>nt :NERDTreeFind<CR>
 endif
-"
+
 " Shortcut for LeaderF ripgrep
 noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
 noremap <leader>R :<C-U>LeaderfRgRecall<CR>
-"
+
 " Remap up/down in LeaderF
 let g:Lf_CommandMap = {'<C-K>': ['<C-P>'], '<C-J>': ['<C-N>']}
+
+" Shortcut to Trouble
+if has('nvim')
+  nnoremap <leader>T :TroubleToggle<CR>
+  lua <<EOF
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+EOF
+endif
 
 " Make Y the same as D
 nmap Y y$
