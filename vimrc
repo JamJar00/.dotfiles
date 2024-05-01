@@ -115,6 +115,7 @@ call plug#begin('~/.vim/plugged')
   if hostname() == "FEATHERS" || hostname() == "Feathers"
     Plug 'leafOfTree/vim-svelte-plugin'
   endif
+  Plug 'dstein64/vim-startuptime'
 call plug#end()
 
 " Enable colorscheme
@@ -193,8 +194,8 @@ EOF
 
   " Treesitter
   lua << EOF
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+require('nvim-treesitter.configs').setup {
+  -- A list of parser names, or "all"
   ensure_installed = { "bash", "diff", "fish", "gitcommit", "git_config", "gitignore", "json", "lua", "make", "markdown", "markdown_inline", "python", "rust", "terraform", "vim", "vimdoc", "yaml" },
 
   -- Automatically install missing parsers when entering buffer
@@ -232,9 +233,6 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
@@ -262,7 +260,7 @@ EOF
   " nvim-cmp
   lua <<EOF
   -- Set up nvim-cmp.
-  local cmp = require'cmp'
+  local cmp = require('cmp')
 
   cmp.setup({
     snippet = {
@@ -314,13 +312,14 @@ EOF
 
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  require('lspconfig')['pyright'].setup {
+  local lspconfig = require('lspconfig')
+  lspconfig['pyright'].setup {
     capabilities = capabilities
   }
-  require('lspconfig')['rust_analyzer'].setup {
+  lspconfig['rust_analyzer'].setup {
     capabilities = capabilities
   }
-  require('lspconfig')['terraformls'].setup {
+  lspconfig['terraformls'].setup {
     capabilities = capabilities
   }
 EOF
