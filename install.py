@@ -40,6 +40,8 @@ if envbot.platform == "Darwin":
     envbot.brew.install("wacom-tablet", True)
     envbot.brew.install("caffeine", True)
     envbot.brew.install("font-hack-nerd-font", True) # Terminal font required for NvimTree icons
+    envbot.brew.install("pritunl", True)
+    envbot.brew.install("openvpn-connect", True)
 
     # Specify the preferences directory
     envbot.defaults.write("com.googlecode.iterm2.plist", "PrefsCustomFolder", envbot.cwd + "/iterm2")
