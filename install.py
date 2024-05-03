@@ -22,6 +22,7 @@ if envbot.platform == "Darwin":
     envbot.brew.install("bash")
     envbot.brew.install("bash-completion@2")
     envbot.brew.install("docker")
+    envbot.brew.install("fish")
     envbot.brew.install("gnupg")
     envbot.brew.install("helm")
     envbot.brew.install("jq")
