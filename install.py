@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
+import argparse
+
 import envbot
 import envbot.apt
 import envbot.brew
 import envbot.defaults
 import envbot.pip
+import envbot.pipx
 import envbot.scoop
 import envbot.winget
 
 
-envbot.init()
+parser = argparse.ArgumentParser()
+parser.add_argument("--with-wacom", action="store_true")
+
+args = envbot.init_from_parser(parser)
 
 envbot.symlink("bashrc", "~/.bashrc")
 envbot.symlink("gitconfig", "~/.gitconfig")
@@ -38,7 +44,8 @@ if envbot.platform == "Darwin":
 
     envbot.brew.install("iterm2", True)
     envbot.brew.install("karabiner-elements", True)
-    envbot.brew.install("wacom-tablet", True)
+    if args.with_wacom:
+        envbot.brew.install("wacom-tablet", True)
     envbot.brew.install("caffeine", True)
     envbot.brew.install("font-hack-nerd-font", True) # Terminal font required for NvimTree icons
     envbot.brew.install("pritunl", True)
@@ -80,6 +87,6 @@ envbot.chsh("fish")
 envbot.pip.install("pynvim")
 envbot.shell("nvim --headless +PlugInstall +qall")
 
-envbot.pip.install("pyright")
+envbot.pipx.install("pyright")
 
 envbot.exit()
