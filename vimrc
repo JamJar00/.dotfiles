@@ -163,6 +163,8 @@ endif
 " Make Y the same as D
 nmap Y y$
 
+nmap <leader>w :%s/\r//g<CR>
+
 " Make Ctrl-P show hidden files
 let g:ctrlp_show_hidden = 1
 
