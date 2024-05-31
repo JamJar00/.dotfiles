@@ -27,7 +27,7 @@ else:
 
 # Packages
 if envbot.platform == "Darwin":
-    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "terraform-ls", "watch")
+    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
 
     if args.with_wacom:
         envbot.install("wacom-tablet")
