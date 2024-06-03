@@ -26,6 +26,8 @@ else:
 
 
 # Packages
+envbot.install_package_manager()
+
 if envbot.platform == "Darwin":
     envbot.install("bash", "bash-completion@2", "caffeine", "docker", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
 
@@ -34,11 +36,11 @@ if envbot.platform == "Darwin":
 
     envbot.packs.terraform.install_version("1.3.1")
 else:
-    envbot.add_package_repositories("ppa:fish-shell/release-3", "ppa:neovim-ppa/unstable", package_manager="apt")
-    envbot.add_package_repositories("extras", "nerd-fonts")
+    envbot.add_package_repositories("ppa:fish-shell/release-3", "ppa:neovim-ppa/unstable")
+    envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
-    envbot.install("fish", "neovim", package_manager="apt")
-    envbot.install("7zip", "powertoys", "screentogif", "win32yank", "CascadiaCode-NF-Mono")
+    envbot.install("fish", "neovim")
+    envbot.install("7zip", "powertoys", "screentogif", "win32yank", "CascadiaCode-NF-Mono", package_manager="scoop")
 
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
 
