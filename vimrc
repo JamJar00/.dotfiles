@@ -216,6 +216,7 @@ local lspconfig = require('lspconfig')
 lspconfig.pyright.setup {}
 lspconfig.rust_analyzer.setup {}
 lspconfig.terraformls.setup {}
+lspconfig.csharp_ls.setup {}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -297,6 +298,9 @@ lspconfig['rust_analyzer'].setup {
   capabilities = capabilities
 }
 lspconfig['terraformls'].setup {
+  capabilities = capabilities
+}
+lspconfig['csharp_ls'].setup {
   capabilities = capabilities
 }
 EOF

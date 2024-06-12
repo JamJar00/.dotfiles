@@ -2,6 +2,7 @@
 import argparse
 
 import envbot
+import envbot.util
 import envbot.lowlevel.defaults
 import envbot.packs.terraform
 
@@ -29,7 +30,7 @@ else:
 envbot.install_package_manager()
 
 if envbot.platform == "Darwin":
-    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
+    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "dotnet-sdk", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
 
     if args.with_wacom:
         envbot.install("wacom-tablet")
@@ -39,16 +40,30 @@ else:
     envbot.add_package_repositories("ppa:fish-shell/release-3", "ppa:neovim-ppa/unstable")
     envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
-    envbot.install("fish", "neovim")
+    envbot.install("dotnet-sdk-8.0", "fish", "neovim")
     envbot.install("7zip", "powertoys", "screentogif", "win32yank", "CascadiaCode-NF-Mono", package_manager="scoop")
 
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
 
+@envbot.step("Pipx install", "{0}")
+def install_pipx(name):
+    if envbot.util.is_command_installed(name):
+        raise envbot.StepSkipped()
+
+    envbot.shell("pipx install " + name)
+
+@envbot.step(".NET tool install", "{0}")
+def install_dotnet_tool(name):
+    if envbot.util.is_command_installed(name):
+        raise envbot.StepSkipped()
+
+    envbot.shell("dotnet tool install --global " + name)
+
+install_dotnet_tool("csharp-ls")
+install_pipx("pyright")
 
 envbot.install("poetry", "pynvim", package_manager="pip")
-envbot.install("pyright", package_manager="pipx")
 envbot.shell("nvim --headless +PlugInstall +qall")
-
 
 # Settings
 if envbot.platform == "Darwin":
