@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import argparse
+import os
+import stat
 
 import envbot
 import envbot.util
@@ -27,10 +29,8 @@ else:
 
 
 # Packages
-envbot.install_package_manager()
-
 if envbot.platform == "Darwin":
-    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "dotnet-sdk", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
+    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "dotnet-sdk", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "rust-analyzer", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
 
     if args.with_wacom:
         envbot.install("wacom-tablet")
@@ -44,6 +44,15 @@ else:
     envbot.install("7zip", "powertoys", "screentogif", "win32yank", "CascadiaCode-NF-Mono", package_manager="scoop")
 
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
+
+    @envbot.step("Install Rust Analyzer")
+    def install_rust_analyzer():
+        envbot.make_directories("~/.local/bin")
+        envbot.shell("curl -L https://github.com/rust-lang/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer")
+        st = os.stat(os.path.expanduser("~/.local/bin"))
+        envbot.chmod("~/.local/bin/rust-analyzer", st.st_mode | stat.S_IEXEC)
+
+    install_rust_analyzer()
 
 @envbot.step("Pipx install", "{0}")
 def install_pipx(name):
