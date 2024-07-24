@@ -90,7 +90,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
-  Plug 'rafamadriz/friendly-snippets'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
@@ -192,7 +191,7 @@ EOF
   lua << EOF
 require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "bash", "diff", "fish", "gitcommit", "git_config", "gitignore", "json", "lua", "make", "markdown", "markdown_inline", "python", "rust", "terraform", "vim", "vimdoc", "yaml" },
+  ensure_installed = { "bash", "diff", "fish", "gitcommit", "git_config", "gitignore", "javascript", "json", "lua", "make", "markdown", "markdown_inline", "python", "rust", "terraform", "typescript", "vim", "vimdoc", "yaml" },
 
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
@@ -217,6 +216,7 @@ lspconfig.pyright.setup {}
 lspconfig.rust_analyzer.setup {}
 lspconfig.terraformls.setup {}
 lspconfig.csharp_ls.setup {}
+lspconfig.tsserver.setup {}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -288,7 +288,7 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Set up lspconfig.
+-- Set up cmp_nvim_lsp with lspconfig
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
 lspconfig['pyright'].setup {
@@ -303,12 +303,18 @@ lspconfig['terraformls'].setup {
 lspconfig['csharp_ls'].setup {
   capabilities = capabilities
 }
+lspconfig['tsserver'].setup {
+  capabilities = capabilities
+}
 EOF
 
   " nvim-lint
   lua <<EOF
 require('lint').linters_by_ft = {
+  javascript= {'eslint'},
   terraform = {'tflint', 'tfsec'},
+  typescript = {'eslint'},
+  typescriptreact = {'eslint'},
   sh = {'shellcheck'}
 }
 EOF
