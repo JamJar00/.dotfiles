@@ -94,17 +94,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
     Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/vim-vsnip'
+    Plug 'ms-jpq/coq_nvim', { 'branch': 'coq', 'do': ':COQdeps' }
+    " Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
     Plug 'folke/trouble.nvim'
     Plug 'mfussenegger/nvim-lint'
-    else
+  else
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'preservim/nerdtree'
     if hostname() == "FXJXWHJ0W0.local"
@@ -209,14 +205,25 @@ require('nvim-treesitter.configs').setup {
 }
 EOF
 
-  " LSP
+  " LSP & Completion
   lua << EOF
+-- Autostart completion (must come before require('coq'))
+vim.g.coq_settings = {
+  auto_start = true
+}
+
+local coq = require('coq')
+capabilities = coq.lsp_ensure_capabilities()
+
+-- Setup LSPs with lspconfig
 local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {}
-lspconfig.rust_analyzer.setup {}
-lspconfig.terraformls.setup {}
-lspconfig.csharp_ls.setup {}
-lspconfig.tsserver.setup {}
+lspconfig.pyright.setup(capabilities)
+lspconfig.rust_analyzer.setup(capabilities)
+lspconfig.terraformls.setup(capabilities)
+lspconfig.csharp_ls.setup(capabilities)
+if vim.fn.hostname() == "FXJXWHJ0W0.local" then
+  lspconfig.tsserver.setup(capabilities)
+end
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -252,60 +259,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
   end,
 })
-EOF
-
-  " nvim-cmp
-  lua <<EOF
--- Set up nvim-cmp.
-local cmp = require('cmp')
-
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
-  })
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
--- Set up cmp_nvim_lsp with lspconfig
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lspconfig = require('lspconfig')
-lspconfig['pyright'].setup {
-  capabilities = capabilities
-}
-lspconfig['rust_analyzer'].setup {
-  capabilities = capabilities
-}
-lspconfig['terraformls'].setup {
-  capabilities = capabilities
-}
-lspconfig['csharp_ls'].setup {
-  capabilities = capabilities
-}
-lspconfig['tsserver'].setup {
-  capabilities = capabilities
-}
 EOF
 
   " nvim-lint
