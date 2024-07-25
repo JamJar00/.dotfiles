@@ -97,7 +97,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
     Plug 'neovim/nvim-lspconfig'
     Plug 'ms-jpq/coq_nvim', { 'branch': 'coq', 'do': ':COQdeps' }
-    " Plug 'ms-jpq/coq.thirdparty', {'branch': '3p'}
+    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
     Plug 'folke/trouble.nvim'
     Plug 'mfussenegger/nvim-lint'
   else
@@ -209,7 +209,7 @@ EOF
   lua << EOF
 -- Autostart completion (must come before require('coq'))
 vim.g.coq_settings = {
-  auto_start = true
+  auto_start = 'shut-up'
 }
 
 local coq = require('coq')
@@ -252,7 +252,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end, opts)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', '<leader>=', function()
       vim.lsp.buf.format { async = true }
