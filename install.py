@@ -54,12 +54,22 @@ else:
 
     install_rust_analyzer()
 
+
+@envbot.step("Install Pipx")
+def install_pipx_itself(globally=False):
+    envbot.install("pipx")
+    envbot.shell("pipx ensurepath")
+    if globally:
+        envbot.shell("sudo pipx ensurepath --global")
+
+
 @envbot.step("Pipx install", "{0}")
 def install_pipx(name):
     if envbot.util.is_command_installed(name):
         raise envbot.StepSkipped()
 
     envbot.shell("pipx install " + name)
+
 
 @envbot.step(".NET tool install", "{0}")
 def install_dotnet_tool(name):
@@ -68,7 +78,9 @@ def install_dotnet_tool(name):
 
     envbot.shell("dotnet tool install --global " + name)
 
+
 install_dotnet_tool("csharp-ls")
+install_pipx_itself()
 install_pipx("pyright")
 
 envbot.install("poetry", "pynvim", package_manager="pip")
