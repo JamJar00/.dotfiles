@@ -81,9 +81,10 @@ def install_dotnet_tool(name):
 
 install_dotnet_tool("csharp-ls")
 install_pipx_itself()
-install_pipx("pyright")
+install_pipx("poetry")
 
-envbot.install("poetry", "pynvim", package_manager="pip")
+install_pipx("pyright")
+envbot.install("pynvim", package_manager="pip")
 envbot.shell("nvim --headless +PlugInstall +qall")
 
 @envbot.step("Prompt install")

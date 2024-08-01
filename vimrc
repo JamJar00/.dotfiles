@@ -90,6 +90,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
+  Plug 'itchyny/vim-gitbranch'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
@@ -122,6 +123,9 @@ colorscheme OceanicNext
 " Lightline
 let g:lightline = {
   \   'colorscheme': 'wombat',
+  \   'component_function': {
+  \      'gitbranch': 'gitbranch#name'
+  \    },
   \   'component_expand': {
   \     'linter_hints': 'lightline#lsp#hints',
   \     'linter_infos': 'lightline#lsp#infos',
@@ -136,7 +140,10 @@ let g:lightline = {
   \     'linter_errors': 'error',
   \     'linter_ok': 'right',
   \   },
-  \   'active': { 'right': [[ 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_hints', 'linter_ok' ]] }
+  \   'active': {
+  \     'left': [[ 'mode', 'paste' ], ['readonly', 'filename', 'modified', 'gitbranch']],
+  \     'right': [[ 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_hints', 'linter_ok' ]]
+  \   }
   \ }
 
 let g:lightline#lsp#indicator_hints = "\uf002"
