@@ -41,7 +41,7 @@ else:
     envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
     envbot.install("dotnet-sdk-8.0", "fish", "neovim")
-    envbot.install("7zip", "powertoys", "screentogif", "win32yank", "CascadiaCode-NF-Mono", package_manager="scoop")
+    envbot.install("7zip", "coretemp", "powertoys", "screentogif", "win32yank", "CascadiaCode-NF-Mono", package_manager="scoop")
 
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
 
@@ -89,9 +89,9 @@ envbot.shell("nvim --headless +PlugInstall +qall")
 
 @envbot.step("git clone", "{0}")
 def git_clone(url, path):
-    if os.path.exists(os.path.expanduser("~/Projects/prompt")):
+    if os.path.exists(os.path.expanduser(path)):
         raise envbot.StepSkipped()
-    envbot.shell("git clone {url} {path}")
+    envbot.shell(f"git clone {url} {path}")
 
 @envbot.step("Prompt install")
 def install_prompt():
