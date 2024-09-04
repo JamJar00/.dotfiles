@@ -14,7 +14,6 @@ parser.add_argument("--with-wacom", action="store_true")
 
 args = envbot.init_from_parser(parser)
 
-
 # Dotfiles
 envbot.symlink("bashrc", "~/.bashrc")
 envbot.symlink("gitconfig", "~/.gitconfig")
@@ -30,7 +29,8 @@ else:
 
 # Packages
 if envbot.platform == "Darwin":
-    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "dotnet-sdk", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "rust-analyzer", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
+    # dotnet-sdk omitted as the Homebrew install doesn't set it up right for csharp-ls
+    envbot.install("bash", "bash-completion@2", "caffeine", "docker", "fish", "font-hack-nerd-font", "gnupg", "helm", "iterm2", "jq", "karabiner-elements", "kubectx", "kubernetes-cli", "mcfly", "minikube", "neovim",  "openvpn-connect", "pritunl", "ripgrep", "rust-analyzer", "shellcheck", "terraform-ls", "tflint", "tfsec", "watch")
 
     if args.with_wacom:
         envbot.install("wacom-tablet")
