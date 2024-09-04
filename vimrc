@@ -318,7 +318,8 @@ autocmd BufWritePre * silent! call StripTrailingWhitespace()
 " Automatically remove Windows new lines
 function! StripWindowsLineEndings()
   let l:save_view = winsaveview()
-  %s/\r//g
+  setlocal ff=unix
+  " %s/\r//g
   call winrestview(l:save_view)
 endfunction
 
