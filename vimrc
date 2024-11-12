@@ -156,11 +156,23 @@ let g:lightline#lsp#indicator_ok = "\uf00c"
 let mapleader = " "
 
 " Shortcut to terminal
-if has('nvim')
-  nnoremap <leader>t :below split <bar> term<CR>a
-else
-  nnoremap <leader>t :below term<CR>a
-endif
+let g:term_buf_nr = -1
+function! ToggleTerminal()
+  " If there's no terminal or the previous one was closed create a new one, else open the old one
+  if g:term_buf_nr == -1 || !bufexists(g:term_buf_nr)
+    if has('nvim')
+      execute "below split"
+      execute "term"
+    else
+      execute "below term"
+    endif
+    let g:term_buf_nr = bufnr("$")
+  else
+    execute "below sbuffer " .g:term_buf_nr
+  endif
+endfunction
+
+nnoremap <leader>t :call ToggleTerminal()<CR>a
 
 " Shortcut to NERDTree/NvimTree
 if has('nvim')
