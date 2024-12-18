@@ -174,13 +174,6 @@ endfunction
 
 nnoremap <leader>t :call ToggleTerminal()<CR>a
 
-" Shortcut to NERDTree/NvimTree
-if has('nvim')
-  nnoremap <leader>nt :NvimTreeFindFileToggle<CR>
-else
-  nnoremap <leader>nt :NERDTreeFind<CR>
-endif
-
 " Shortcut for LeaderF ripgrep
 noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
 noremap <leader>R :<C-U>LeaderfRgRecall<CR>
@@ -223,6 +216,24 @@ require("nvim-tree").setup({
     ignore = false
   }
 })
+
+function open_nvim_tree()
+  local api = require "nvim-tree.api"
+  local path = vim.api.nvim_buf_get_name(0)
+  local bufnr = vim.fn.bufnr()
+  if api.tree.is_tree_buf(bufnr) then
+    api.tree.close()
+  else
+    api.tree.find_file({
+      path = path,
+      open = true,
+      focus = true,
+      update_root = false
+    })
+  end
+end
+
+vim.keymap.set('n', '<leader>nt', open_nvim_tree)
 EOF
 
   " Treesitter
@@ -336,3 +347,10 @@ function! StripWindowsLineEndings()
 endfunction
 
 autocmd BufWritePre * silent! call StripWindowsLineEndings()
+
+" Automatically format terraform
+function! FormatTerraform()
+  execute "!terraform fmt %"
+endfunction
+
+autocmd BufWritePost *.tf silent! call FormatTerraform()
