@@ -7,6 +7,7 @@ import envbot
 import envbot.util
 import envbot.lowlevel.defaults
 import envbot.packs.terraform
+import envbot.packs.node
 
 
 parser = argparse.ArgumentParser()
@@ -37,6 +38,8 @@ if envbot.platform == "Darwin":
 
     envbot.packs.terraform.install_version("1.3.1")
 else:
+    envbot.packs.node.install_version("22.12.0")
+
     envbot.add_package_repositories("ppa:fish-shell/release-3", "ppa:neovim-ppa/unstable")
     envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
@@ -55,22 +58,6 @@ else:
     install_rust_analyzer()
 
 
-@envbot.step("Install Pipx")
-def install_pipx_itself(globally=False):
-    envbot.install("pipx")
-    envbot.shell("pipx ensurepath")
-    if globally:
-        envbot.shell("sudo pipx ensurepath --global")
-
-
-@envbot.step("Pipx install", "{0}")
-def install_pipx(name):
-    if envbot.util.is_command_installed(name):
-        raise envbot.StepSkipped()
-
-    envbot.shell("pipx install " + name)
-
-
 @envbot.step(".NET tool install", "{0}")
 def install_dotnet_tool(name):
     if envbot.util.is_command_installed(name):
@@ -80,10 +67,10 @@ def install_dotnet_tool(name):
 
 
 install_dotnet_tool("csharp-ls")
-install_pipx_itself()
-install_pipx("poetry")
 
-install_pipx("pyright")
+envbot.install_package_manager("pipx")
+envbot.install("poetry", "pyright", package_manager="pipx")
+
 envbot.install("pynvim", package_manager="pip")
 envbot.shell("nvim --headless +PlugInstall +qall")
 
