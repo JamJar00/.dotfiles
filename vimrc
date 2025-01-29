@@ -143,7 +143,7 @@ let g:lightline = {
   \   },
   \   'active': {
   \     'left': [[ 'mode', 'paste' ], ['readonly', 'filename', 'modified', 'gitbranch']],
-  \     'right': [[ 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_hints', 'linter_ok' ]]
+  \     'right': [[ 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_hints', 'linter_ok' ], [ 'lineinfo' ], [ 'percent' ]]
   \   }
   \ }
 
