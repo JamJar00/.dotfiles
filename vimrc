@@ -91,6 +91,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
   Plug 'itchyny/vim-gitbranch'
+  Plug 'github/copilot.vim'
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
@@ -198,6 +199,10 @@ nmap <leader>c  <Plug>Commentary
 omap <leader>c  <Plug>Commentary
 nmap <leader>cc <Plug>CommentaryLine
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
+
+" Remap copilot to Ctrl-J
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 " NvimTree
 if has('nvim')
