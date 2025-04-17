@@ -45,7 +45,7 @@ else:
     envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
     envbot.install("dotnet-sdk-8.0", "fish", "neovim")
-    envbot.install("7zip", "coretemp", "powertoys", "screentogif", "win32yank", "yt-dlp", "CascadiaCode-NF-Mono", package_manager="scoop")
+    envbot.install("7zip", "coretemp", "cpu-z", "powertoys", "screentogif", "win32yank", "yt-dlp", "CascadiaCode-NF-Mono", package_manager="scoop")
 
     envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
 
