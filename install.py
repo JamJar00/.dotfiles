@@ -6,6 +6,7 @@ import stat
 import envbot
 import envbot.util
 import envbot.lowlevel.defaults
+import envbot.lowlevel.git
 import envbot.packs.terraform
 import envbot.packs.node
 
@@ -74,18 +75,12 @@ envbot.install("poetry", "pyright", package_manager="pipx")
 envbot.install("pynvim", package_manager="pip")
 envbot.shell("nvim --headless +PlugInstall +qall")
 
-@envbot.step("git clone", "{0}")
-def git_clone(url, path):
-    if os.path.exists(os.path.expanduser(path)):
-        raise envbot.StepSkipped()
-    envbot.shell(f"git clone {url} {path}")
-
 @envbot.step("Prompt install")
 def install_prompt():
     if envbot.util.is_command_installed("prompt"):
         raise envbot.StepSkipped()
 
-    git_clone("git@github.com:JamJar00/prompt.git", "~/Projects/prompt")
+    envbot.lowlevel.git.git_clone("git@github.com:JamJar00/prompt.git", "~/Projects/prompt")
     envbot.shell("cd ~/Projects/prompt && cargo build")
     envbot.ensure_file_contains_text("~/.config/fish/config.fish.local", "fish_add_path ~/Projects/prompt/target/debug")
 
