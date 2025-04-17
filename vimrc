@@ -347,7 +347,7 @@ autocmd BufWritePre * silent! call StripTrailingWhitespace()
 function! StripWindowsLineEndings()
   let l:save_view = winsaveview()
   setlocal ff=unix
-  " %s/\r//g
+  %s/\r//g
   call winrestview(l:save_view)
 endfunction
 
