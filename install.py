@@ -47,7 +47,14 @@ else:
     envbot.install("dotnet-sdk-8.0", "fish", "neovim")
     envbot.install("7zip", "coretemp", "cpu-z", "screentogif", "win32yank", "yt-dlp", "CascadiaCode-NF-Mono", package_manager="scoop")
 
-    envbot.shell("command -v mcfly &> /dev/null || curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
+    @envbot.step("Install Mcfly")
+    def install_mcfly():
+        if envbot.util.is_command_installed("mcfly"):
+            raise envbot.StepSkipped()
+
+        envbot.shell("curl -LSfs https://raw.githubusercontent.com/cantino/mcfly/master/ci/install.sh | sh -s -- --git cantino/mcfly --to ~/.bin")
+
+    install_mcfly()
 
     @envbot.step("Install Rust Analyzer")
     def install_rust_analyzer():
@@ -65,7 +72,6 @@ def install_dotnet_tool(name):
         raise envbot.StepSkipped()
 
     envbot.shell("dotnet tool install --global " + name)
-
 
 install_dotnet_tool("csharp-ls")
 
