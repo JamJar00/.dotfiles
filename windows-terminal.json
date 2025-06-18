@@ -1,10 +1,10 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -22,16 +22,16 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{5fc4f4b5-fd88-4b5b-8cbe-8bef55532aa3}",
-    "newTabMenu": 
+    "newTabMenu":
     [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": 
+    "profiles":
     {
         "defaults": {},
-        "list": 
+        "list":
         [
             {
                 "bellStyle": "window",
@@ -51,10 +51,10 @@
                 "colorScheme": "Tango Dark",
                 "commandline": "ubuntu2204.exe",
                 "cursorShape": "filledBox",
-                "font": 
+                "font":
                 {
                     "face": "CaskaydiaCove Nerd Font Mono",
-                    "size": 13
+                    "size": 10
                 },
                 "guid": "{5fc4f4b5-fd88-4b5b-8cbe-8bef55532aa3}",
                 "hidden": false,
