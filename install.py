@@ -45,7 +45,7 @@ else:
     envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
     envbot.install("dotnet-sdk-8.0", "fish", "neovim")
-    envbot.install("7zip", "coretemp", "cpu-z", "screentogif", "win32yank", "yt-dlp", "CascadiaCode-NF-Mono", package_manager="scoop")
+    envbot.install("7zip", "coretemp", "cpu-z", "screentogif", "rclone", "win32yank", "yt-dlp", "CascadiaCode-NF-Mono", package_manager="scoop")
 
     @envbot.step("Install Mcfly")
     def install_mcfly():
