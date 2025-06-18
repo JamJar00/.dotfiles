@@ -110,7 +110,7 @@ call plug#begin('~/.vim/plugged')
       Plug 'hashivim/vim-terraform'
     endif
   endif
-  if hostname() == "FEATHERS" || hostname() == "Feathers"
+  if hostname() == "FEATHERS" || hostname() == "FLUFFLES"
     Plug 'leafOfTree/vim-svelte-plugin'
   endif
   Plug 'dstein64/vim-startuptime'
