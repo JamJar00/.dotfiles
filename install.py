@@ -65,6 +65,17 @@ else:
 
     install_rust_analyzer()
 
+    @envbot.step("Install Docker")
+    def install_docker():
+        envbot.install("apt-transport-https", "ca-certificates" "curl", "software-properties-common")
+        envbot.shell("curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -")
+        envbot.shell("sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"")
+        envbot.install("docker-ce")
+        envbot.shell("sudo gpasswd -a $USER docker")
+        envbot.shell("sudo service docker start")
+
+    install_docker()
+
 
 @envbot.step(".NET tool install", "{0}")
 def install_dotnet_tool(name):
