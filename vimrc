@@ -366,7 +366,7 @@ autocmd BufWritePre * silent! call StripWindowsLineEndings()
 
 " Automatically format terraform
 function! FormatTerraform()
-  execute "!terraform fmt %"
+  execute "!terraform fmt % || true"
 endfunction
 
 autocmd BufWritePost *.tf silent! call FormatTerraform()
