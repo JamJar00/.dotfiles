@@ -111,7 +111,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'neovim/nvim-lspconfig'
     Plug 'ms-jpq/coq_nvim', { 'branch': 'coq', 'do': ':COQdeps' }
     Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-    Plug 'folke/trouble.nvim'
     Plug 'mfussenegger/nvim-lint'
     Plug 'spywhere/lightline-lsp'
     Plug 'VidocqH/lsp-lens.nvim'
@@ -243,9 +242,6 @@ if has('nvim')
   " Shortcut for LeaderF ripgrep
   noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
   noremap <leader>R :<C-U>LeaderfRgRecall<CR>
-
-  " Trouble
-  nnoremap <leader>T :TroubleToggle<CR>
 
   " Remap copilot to Ctrl-J
   imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
