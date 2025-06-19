@@ -12,8 +12,13 @@ if status is-interactive
   command -v mcfly &> /dev/null && mcfly init fish | source
 
   [ -s ~/.config/fish/config.fish.local ] && source ~/.config/fish/config.fish.local
+  [ -s ~/.config/fish/config.local.fish ] && source ~/.config/fish/config.local.fish
 
   function fish_prompt
-    prompt --exit-code $status
+    if [ "$TERM_PROGRAM" = "iTerm.app" ]
+      prompt --exit-code $status --iterm2
+    else
+      prompt --exit-code $status
+    end
   end
 end
