@@ -281,7 +281,7 @@ lspconfig.rust_analyzer.setup(capabilities)
 lspconfig.terraformls.setup(capabilities)
 lspconfig.csharp_ls.setup(capabilities)
 if vim.fn.hostname() == "FXJXWHJ0W0.local" then
-  lspconfig.tsserver.setup(capabilities)
+  lspconfig.ts_ls.setup(capabilities)
 end
 
 -- Global mappings.
