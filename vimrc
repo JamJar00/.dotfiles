@@ -103,6 +103,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'folke/trouble.nvim'
     Plug 'mfussenegger/nvim-lint'
     Plug 'spywhere/lightline-lsp'
+    Plug 'VidocqH/lsp-lens.nvim'
   else
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'preservim/nerdtree'
@@ -316,6 +317,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.format { async = true }
     end, opts)
   end,
+})
+
+-- Enable lens
+require'lsp-lens'.setup({
+  sections = {
+    definition = true,
+    references = true,
+    implements = true,
+    git_authors = false,
+  }
 })
 EOF
 
