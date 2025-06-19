@@ -93,6 +93,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/vim-gitbranch'
   Plug 'dstein64/vim-startuptime'
 
+  if hostname() == "FEATHERS" || hostname() == "FLUFFLES"
+    Plug 'leafOfTree/vim-svelte-plugin'
+  elseif hostname() == "FXJXWHJ0W0.local"
+    Plug 'github/copilot.vim'
+  endif
+
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
@@ -105,7 +111,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'mfussenegger/nvim-lint'
     Plug 'spywhere/lightline-lsp'
     Plug 'VidocqH/lsp-lens.nvim'
-    Plug 'nvim-lua/plenary.nvim' " Required by neotest
+    Plug 'nvim-lua/plenary.nvim' " Required by Copilot Chat & neotest
 
     Plug 'antoinemadec/FixCursorHold.nvim' " Required by neotest
     Plug 'nvim-neotest/nvim-nio' " Required by neotest
@@ -113,16 +119,17 @@ call plug#begin('~/.vim/plugged')
     Plug 'Issafalcon/neotest-dotnet'
     Plug 'nvim-neotest/neotest-python'
     Plug 'nvim-neotest/neotest-jest'
+
+    if hostname() == "FXJXWHJ0W0.local"
+      Plug 'CopilotC-Nvim/CopilotChat.nvim'
+    endif
   else
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'preservim/nerdtree'
+
     if hostname() == "FXJXWHJ0W0.local"
       Plug 'hashivim/vim-terraform'
     endif
-  endif
-
-  if hostname() == "FEATHERS" || hostname() == "FLUFFLES"
-    Plug 'leafOfTree/vim-svelte-plugin'
   endif
 call plug#end()
 
@@ -242,6 +249,11 @@ if has('nvim')
   imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
   let g:copilot_no_tab_map = v:true
 
+  " Copilot Chat
+  lua << EOF
+require("CopilotChat").setup {}
+EOF
+  nnoremap <leader>C :CopilotChatToggle<CR>
 
   " NvimTree
   let g:loaded_netrw = 1
