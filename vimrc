@@ -200,7 +200,7 @@ omap <leader>c  <Plug>Commentary
 nmap <leader>cc <Plug>CommentaryLine
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
-augroup User
+augroup Vimrc
   autocmd!
 
   " Automatically remove trailing spaces
@@ -343,7 +343,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  group = vim.api.nvim_create_augroup('VimrcLspConfig', {}),
   callback = function(ev)
     -- Buffer local mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -405,7 +405,7 @@ require('lint').linters_by_ft = {
 }
 EOF
 
-  augroup UserNvim
+  augroup VimrcNvim
     autocmd!
 
     autocmd BufWritePost * lua require('lint').try_lint()
