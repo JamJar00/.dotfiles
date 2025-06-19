@@ -1,5 +1,8 @@
 " Set syntax highlighting
 syntax on
+if has("termguicolors") " Nvim doesn't autoenable this
+  set termguicolors
+endif
 
 " Set search highlighting and show search matches while typing
 set hlsearch incsearch
@@ -86,7 +89,8 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 \| endif
 
 call plug#begin('~/.vim/plugged')
-  Plug 'mhartington/oceanic-next'
+  Plug 'morhetz/gruvbox'
+
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
@@ -134,9 +138,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " Enable colorscheme
-let g:oceanic_next_terminal_bold = 1
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+colorscheme gruvbox
 
 " Lightline
 let g:lightline = {
