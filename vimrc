@@ -96,7 +96,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
     Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " Also required by neotest
     Plug 'neovim/nvim-lspconfig'
     Plug 'ms-jpq/coq_nvim', { 'branch': 'coq', 'do': ':COQdeps' }
     Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
@@ -104,6 +104,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'mfussenegger/nvim-lint'
     Plug 'spywhere/lightline-lsp'
     Plug 'VidocqH/lsp-lens.nvim'
+    Plug 'nvim-lua/plenary.nvim' " Required by neotest
+
+    Plug 'antoinemadec/FixCursorHold.nvim' " Required by neotest
+    Plug 'nvim-neotest/nvim-nio' " Required by neotest
+    Plug 'nvim-neotest/neotest'
+    Plug 'Issafalcon/neotest-dotnet'
+    Plug 'nvim-neotest/neotest-python'
+    Plug 'nvim-neotest/neotest-jest'
   else
     Plug 'ctrlpvim/ctrlp.vim'
     Plug 'preservim/nerdtree'
@@ -329,6 +337,21 @@ require'lsp-lens'.setup({
   }
 })
 EOF
+
+  " Neotest
+  lua << EOF
+local neotest = require("neotest")
+neotest.setup({
+  adapters = {
+    require("neotest-dotnet"),
+    require("neotest-python"),
+    require("neotest-jest")
+  },
+})
+vim.keymap.set('n', '<leader>n', function() neotest.run.run() end)
+vim.keymap.set('n', '<leader>N', function() neotest.run.run(vim.fn.expand("%")) end)
+EOF
+command! NeotestSummary lua require("neotest").summary.toggle()
 
   " nvim-lint
   lua <<EOF
