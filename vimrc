@@ -91,7 +91,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
   Plug 'itchyny/vim-gitbranch'
-  Plug 'github/copilot.vim'
+  Plug 'dstein64/vim-startuptime'
+
   if has('nvim')
     Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
     Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
@@ -119,10 +120,10 @@ call plug#begin('~/.vim/plugged')
       Plug 'hashivim/vim-terraform'
     endif
   endif
+
   if hostname() == "FEATHERS" || hostname() == "FLUFFLES"
     Plug 'leafOfTree/vim-svelte-plugin'
   endif
-  Plug 'dstein64/vim-startuptime'
 call plug#end()
 
 " Enable colorscheme
@@ -170,31 +171,14 @@ let g:term_buf_nr = -1
 function! ToggleTerminal()
   " If there's no terminal or the previous one was closed create a new one, else open the old one
   if g:term_buf_nr == -1 || !bufexists(g:term_buf_nr)
-    if has('nvim')
-      execute "below split"
-      execute "term"
-    else
-      execute "below term"
-    endif
+    execute "botright term"
     let g:term_buf_nr = bufnr("$")
   else
-    execute "below sbuffer " .g:term_buf_nr
+    execute "botright sbuffer " .g:term_buf_nr
   endif
 endfunction
 
 nnoremap <leader>t :call ToggleTerminal()<CR>a
-
-" Shortcut for LeaderF ripgrep
-noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
-noremap <leader>R :<C-U>LeaderfRgRecall<CR>
-
-" Remap up/down in LeaderF
-let g:Lf_CommandMap = {'<C-K>': ['<C-P>'], '<C-J>': ['<C-N>']}
-
-" Shortcut to Trouble
-if has('nvim')
-  nnoremap <leader>T :TroubleToggle<CR>
-endif
 
 " Make Y the same as D
 nmap Y y$
@@ -209,12 +193,57 @@ omap <leader>c  <Plug>Commentary
 nmap <leader>cc <Plug>CommentaryLine
 nmap <leader>cu <Plug>Commentary<Plug>Commentary
 
-" Remap copilot to Ctrl-J
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
+augroup User
+  autocmd!
 
-" NvimTree
+  " Automatically remove trailing spaces
+  function! StripTrailingWhitespace()
+    let l:save_view = winsaveview()
+    %s/\s\+$//e
+    call winrestview(l:save_view)
+  endfunction
+
+  autocmd BufWritePre * silent! call StripTrailingWhitespace()
+
+  " Automatically remove Windows new lines
+  function! StripWindowsLineEndings()
+    let l:save_view = winsaveview()
+    setlocal ff=unix
+    %s/\r//g
+    call winrestview(l:save_view)
+  endfunction
+
+  autocmd BufWritePre * silent! call StripWindowsLineEndings()
+
+  " Automatically format terraform
+  function! FormatTerraform()
+    execute "!terraform fmt % || true"
+  endfunction
+
+  autocmd BufWritePost *.tf silent! call FormatTerraform()
+augroup END
+
+nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 if has('nvim')
+  " Remap up/down in LeaderF
+  let g:Lf_CommandMap = {'<C-K>': ['<C-P>'], '<C-J>': ['<C-N>']}
+
+  " Shortcut for LeaderF ripgrep
+  noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
+  noremap <leader>R :<C-U>LeaderfRgRecall<CR>
+
+  " Trouble
+  nnoremap <leader>T :TroubleToggle<CR>
+
+  " Remap copilot to Ctrl-J
+  imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+  let g:copilot_no_tab_map = v:true
+
+
+  " NvimTree
   let g:loaded_netrw = 1
   let g:loaded_netrwPlugin = 1
   lua << EOF
@@ -364,32 +393,10 @@ require('lint').linters_by_ft = {
 }
 EOF
 
-  autocmd BufWritePost * lua require('lint').try_lint()
-  autocmd BufRead * lua require('lint').try_lint()
+  augroup UserNvim
+    autocmd!
+
+    autocmd BufWritePost * lua require('lint').try_lint()
+    autocmd BufRead * lua require('lint').try_lint()
+  augroup END
 endif
-
-" Automatically remove trailing spaces
-function! StripTrailingWhitespace()
-  let l:save_view = winsaveview()
-  %s/\s\+$//e
-  call winrestview(l:save_view)
-endfunction
-
-autocmd BufWritePre * silent! call StripTrailingWhitespace()
-
-" Automatically remove Windows new lines
-function! StripWindowsLineEndings()
-  let l:save_view = winsaveview()
-  setlocal ff=unix
-  %s/\r//g
-  call winrestview(l:save_view)
-endfunction
-
-autocmd BufWritePre * silent! call StripWindowsLineEndings()
-
-" Automatically format terraform
-function! FormatTerraform()
-  execute "!terraform fmt % || true"
-endfunction
-
-autocmd BufWritePost *.tf silent! call FormatTerraform()
