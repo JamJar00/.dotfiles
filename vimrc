@@ -65,6 +65,9 @@ set signcolumn=yes
 " Scroll before the end of the file
 set scrolloff=8
 
+" Highlight the cursor
+set cursorline
+
 " Enable persistent undo and move swap files
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
 set undofile
@@ -229,6 +232,9 @@ augroup Vimrc
   endfunction
 
   autocmd BufWritePost *.tf silent! call FormatTerraform()
+
+  " In the qf window, tab 'previews'
+   autocmd FileType qf map <buffer> <tab> <CR><C-W>p
 augroup END
 
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'

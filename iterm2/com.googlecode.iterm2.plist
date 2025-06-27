@@ -6,6 +6,8 @@
 	<string>/opt/homebrew/bin/fish</string>
 	<key>Default Bookmark Guid</key>
 	<string>8DAB3BB6-D90F-446E-9762-840DA05BF78C</string>
+	<key>DisableWindowSizeSnap</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
