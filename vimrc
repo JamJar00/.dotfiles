@@ -234,7 +234,13 @@ augroup Vimrc
   autocmd BufWritePost *.tf silent! call FormatTerraform()
 
   " In the qf window, tab 'previews'
-   autocmd FileType qf map <buffer> <tab> <CR><C-W>p
+  autocmd FileType qf map <buffer> <tab> <CR><C-W>p
+
+  if filereadable(expand("~/Projects/tree-sitter-tea/grammar.js"))
+    autocmd BufRead,BufNewFile *.tea set filetype=tea
+    autocmd BufRead,BufNewFile *.teafile set filetype=tea
+    autocmd BufRead,BufNewFile teafile set filetype=tea
+  endif
 augroup END
 
 nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -315,6 +321,29 @@ require('nvim-treesitter.configs').setup {
     enable = true
   }
 }
+
+if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
+  local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+  parser_config.tea = {
+    install_info = {
+      url = "~/Projects/tree-sitter-tea",
+      files = {"src/parser.c"},
+      generate_requires_npm = false, -- if stand-alone parser without npm dependencies
+      requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
+    },
+    filetype = "tea",
+    used_by = { "teafile" }, -- if filetype is not the same as parser name
+  }
+end
+
+-- Always use treesitter for folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+-- https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldnestmax = 4
 EOF
 
   " LSP & Completion
@@ -336,6 +365,10 @@ lspconfig.csharp_ls.setup(capabilities)
 if vim.fn.hostname() == "FXJXWHJ0W0.local" then
   lspconfig.ts_ls.setup(capabilities)
 end
+
+vim.lsp.config['tea-ls'] = {
+  filetypes = { 'tea', 'teafile' },
+}
 
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
