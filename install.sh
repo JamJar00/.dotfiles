@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-ln -s ~/.config/nvim/init.vim vimrc || true
+mkdir -p ~/.config/nvim
+ln -s $(pwd)/vimrc ~/.config/nvim/init.vim || true
 
 if [[ $(uname) == "Linux" ]]; then
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
