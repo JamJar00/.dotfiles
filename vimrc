@@ -260,10 +260,12 @@ if has('nvim')
   let g:copilot_no_tab_map = v:true
 
   " Copilot Chat
+if hostname() == "FXJXWHJ0W0.local"
   lua << EOF
 require("CopilotChat").setup {}
 EOF
   nnoremap <leader>C :CopilotChatToggle<CR>
+end
 
   " NvimTree
   let g:loaded_netrw = 1

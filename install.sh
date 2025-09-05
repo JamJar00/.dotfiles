@@ -12,3 +12,10 @@ if [[ $(uname) == "Linux" ]]; then
 fi
 
 pip install pynvim
+
+echo 'export EDITOR="nvim"' >> ~/.bashrc
+echo 'export GIT_EDITOR="nvim"' >> ~/.bashrc
+
+sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
+sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
