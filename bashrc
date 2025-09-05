@@ -24,63 +24,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# PS1 setup
-function __ps1() {
-  local last_exit=$?
-
-  local red='\033[01;31m'
-  local green='\033[01;32m'
-  local yellow='\033[01;33m'
-  local blue='\033[01;34m'
-  local light_blue='\033[01;96m'
-  local reset='\033[00m'
-
-  # Git bit
-  if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ] ; then
-    local git_status=" $(git branch --show-current)"
-  fi
-
-  # K8s bit
-  if command -v kubectl &> /dev/null; then
-    local k8s=" $(kubectl config current-context 2>/dev/null) $(kubectl config view --minify --output 'jsonpath={..namespace}' 2>/dev/null)"
-  fi
-
-  # AWS bit
-  local awss
-  if [[ -n "$AWS_PROFILE" ]];then
-    awss=" ${AWS_PROFILE}"
-  fi
-
-  local region="${AWS_REGION:-${AWS_DEFAULT_REGION:-$AWS_PROFILE_REGION}}"
-  if [[ -n "$region" ]]; then
-    awss="$awss ${region}"
-  fi
-
-  # A chevron shows last exit code
-  local chev_a
-  [[ $last_exit == 0 ]] && chev_a=$green || chev_a=$red
-
-  # B chevron shows unstaged changes
-  local chev_b
-  if [ -d .git ]; then
-    git diff-index --quiet HEAD -- 2>/dev/null >/dev/null && chev_b=$green || chev_b=$yellow
-  else
-    chev_b=$reset
-  fi
-
-  # C chevron shows unpushed changes
-  local chev_c
-  if [ -d .git ]; then
-    [ -z "$(git log @{u}.. 2>/dev/null)"  ] && chev_c=$green || chev_c=$yellow
-  else
-    chev_c=$reset
-  fi
-
-  PS1="\n\[$green\]\w\[$light_blue\]$git_status\[$blue\]$k8s\[$red\]$awss\n\[$chev_a\]›\[$chev_b\]›\[$chev_c\]›\[$reset\] "
-}
-
-PROMPT_COMMAND="__ps1"
-
 # enable color support of common utilities
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -125,3 +68,6 @@ command -v kubectl &> /dev/null && source <(kubectl completion bash)
 
 # Include local bashrc file
 [ -s "$HOME/.bashrc.local" ] && \. "$HOME/.bashrc.local"
+
+# Set prompt
+export PS1='$(prompt --exit-code $? --message "bash")'
