@@ -3,6 +3,9 @@
 mkdir -p ~/.config/nvim
 ln -s $(pwd)/vimrc ~/.config/nvim/init.vim || true
 
+mkdir -p /workspace/.vim
+ln -s /workspace/.vim ~/.vim || true
+
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
