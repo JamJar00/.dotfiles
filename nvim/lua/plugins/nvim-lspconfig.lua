@@ -26,9 +26,21 @@ return {
     -- end
 
     if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
-      vim.lsp.config['tea-ls'] = {
-        filetypes = { 'tea', 'teafile' },
-      }
+      -- vim.lsp.config['tea-ls'] = {
+      --   filetypes = { 'tea', 'teafile' },
+      -- }
+
+      vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+        pattern = {'*.tea', '*.teafile', 'teafile'},
+        callback = function(ev)
+          print("Starting tea-ls")
+          vim.lsp.start {
+              name = "Tea LS",
+              cmd = {vim.fn.expand("~/Projects/tea-ls/target/debug/tea-ls")},
+              capabilities = vim.lsp.protocol.make_client_capabilities(),
+          }
+        end
+      })
     end
 
     -- Use LspAttach autocommand to only map the following keys
