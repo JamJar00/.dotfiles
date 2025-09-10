@@ -45,6 +45,9 @@ return {
         filetype = "tea",
         used_by = { "teafile" }, -- if filetype is not the same as parser name
       }
+
+      -- Symlink the queries
+      vim.cmd('silent! !ln -s $HOME/Projects/tea/nvim-treesitter/queries/tea/ $HOME/.local/share/nvim/lazy/nvim-treesitter/queries/tea')
     end
   end
 }
