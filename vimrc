@@ -9,9 +9,7 @@ set hlsearch incsearch
 
 " Disable esckeys to avoid slow O commands:
 " https://stackoverflow.com/a/2158610/2755790
-if !has('nvim')
-  set noesckeys
-endif
+set noesckeys
 
 " Set nice tab behaviour
 set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab autoindent
@@ -37,8 +35,7 @@ set autoread
 " That's better
 set belloff=all
 
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
+" Set internal encoding of vim
 set encoding=utf-8
 
 " TextEdit might fail if hidden is not set.
@@ -74,14 +71,8 @@ set undofile
 set undodir=~/.vim/undodir
 set directory=~/.vim/backups//
 
-" nvim clipboard & browser linking on WSL
-if has('nvim') && system('$PATH') =~ '/mnt/c/Windows'
-  set clipboard=unnamedplus
-  let g:netrw_browsex_viewer="cmd.exe /C start"
-endif
-
 " Install Plug
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+let data_dir = '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
@@ -98,44 +89,12 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-commentary'
   Plug 'itchyny/lightline.vim'
   Plug 'itchyny/vim-gitbranch'
-  Plug 'dstein64/vim-startuptime'
 
-  if hostname() == "FEATHERS" || hostname() == "FLUFFLES"
-    Plug 'leafOfTree/vim-svelte-plugin'
-  elseif hostname() == "FXJXWHJ0W0.local"
-    Plug 'github/copilot.vim'
-  endif
+  Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  Plug 'preservim/nerdtree'
 
-  if has('nvim')
-    Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-    Plug 'nvim-tree/nvim-web-devicons' " Optional for nvim-tree
-    Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' } " Also required by neotest
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'ms-jpq/coq_nvim', { 'branch': 'coq', 'do': ':COQdeps' }
-    Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-    Plug 'mfussenegger/nvim-lint'
-    Plug 'spywhere/lightline-lsp'
-    Plug 'VidocqH/lsp-lens.nvim'
-    Plug 'nvim-lua/plenary.nvim' " Required by Copilot Chat & neotest
-
-    Plug 'antoinemadec/FixCursorHold.nvim' " Required by neotest
-    Plug 'nvim-neotest/nvim-nio' " Required by neotest
-    Plug 'nvim-neotest/neotest'
-    Plug 'Issafalcon/neotest-dotnet'
-    Plug 'nvim-neotest/neotest-python'
-    Plug 'nvim-neotest/neotest-jest'
-
-    if hostname() == "FXJXWHJ0W0.local"
-      Plug 'CopilotC-Nvim/CopilotChat.nvim'
-    endif
-  else
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'preservim/nerdtree'
-
-    if hostname() == "FXJXWHJ0W0.local"
-      Plug 'hashivim/vim-terraform'
-    endif
+  if hostname() == "FXJXWHJ0W0.local"
+    Plug 'hashivim/vim-terraform'
   endif
 call plug#end()
 
@@ -194,9 +153,6 @@ nnoremap <leader>t :call ToggleTerminal()<CR>a
 " Make Y the same as D
 nmap Y y$
 
-" Make Ctrl-P show hidden files
-let g:ctrlp_show_hidden = 1
-
 " Commentary mappings to leader
 xmap <leader>c  <Plug>Commentary
 nmap <leader>c  <Plug>Commentary
@@ -228,226 +184,11 @@ augroup Vimrc
 
   " Automatically format terraform
   function! FormatTerraform()
-    execute "!terraform fmt % || true"
+    execute "silent! !terraform fmt %"
   endfunction
 
   autocmd BufWritePost *.tf silent! call FormatTerraform()
 
   " In the qf window, tab 'previews'
   autocmd FileType qf map <buffer> <tab> <CR><C-W>p
-
-  if filereadable(expand("~/Projects/tree-sitter-tea/grammar.js"))
-    autocmd BufRead,BufNewFile *.tea set filetype=tea
-    autocmd BufRead,BufNewFile *.teafile set filetype=tea
-    autocmd BufRead,BufNewFile teafile set filetype=tea
-  endif
 augroup END
-
-nnoremap <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-if has('nvim')
-  " Remap up/down in LeaderF
-  let g:Lf_CommandMap = {'<C-K>': ['<C-P>'], '<C-J>': ['<C-N>']}
-
-  " Shortcut for LeaderF ripgrep
-  noremap <leader>F :<C-U>LeaderfRgInteractive<CR>
-  noremap <leader>R :<C-U>LeaderfRgRecall<CR>
-
-  " Remap copilot to Ctrl-J
-  imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-  let g:copilot_no_tab_map = v:true
-
-  " Copilot Chat
-if hostname() == "FXJXWHJ0W0.local"
-  lua << EOF
-require("CopilotChat").setup {}
-EOF
-  nnoremap <leader>C :CopilotChatToggle<CR>
-end
-
-  " NvimTree
-  let g:loaded_netrw = 1
-  let g:loaded_netrwPlugin = 1
-  lua << EOF
-require("nvim-tree").setup({
-  sort_by = "case_sensitive",
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  git = {
-    ignore = false
-  }
-})
-
-function open_nvim_tree()
-  local api = require "nvim-tree.api"
-  local path = vim.api.nvim_buf_get_name(0)
-  local bufnr = vim.fn.bufnr()
-  if api.tree.is_tree_buf(bufnr) then
-    api.tree.close()
-  else
-    api.tree.find_file({
-      path = path,
-      open = true,
-      focus = true,
-      update_root = false
-    })
-  end
-end
-
-vim.keymap.set('n', '<leader>nt', open_nvim_tree)
-EOF
-
-  " Treesitter
-  lua << EOF
-require('nvim-treesitter.configs').setup {
-  -- A list of parser names, or "all"
-  ensure_installed = { "bash", "c_sharp", "diff", "fish", "gitcommit", "git_config", "gitignore", "javascript", "json", "lua", "make", "markdown", "markdown_inline", "python", "rust", "terraform", "typescript", "vim", "vimdoc", "yaml" },
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = false,
-
-  highlight = {
-    enable = true,
-
-    additional_vim_regex_highlighting = false,
-  },
-
-  indent = {
-    enable = true
-  }
-}
-
-if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
-  local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-  parser_config.tea = {
-    install_info = {
-      url = "~/Projects/tree-sitter-tea",
-      files = {"src/parser.c"},
-      generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-      requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-    },
-    filetype = "tea",
-    used_by = { "teafile" }, -- if filetype is not the same as parser name
-  }
-end
-
--- Always use treesitter for folding
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-
--- https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
-vim.opt.foldnestmax = 4
-EOF
-
-  " LSP & Completion
-  lua << EOF
--- Autostart completion (must come before require('coq'))
-vim.g.coq_settings = {
-  auto_start = 'shut-up'
-}
-
-local coq = require('coq')
-capabilities = coq.lsp_ensure_capabilities()
-
--- Setup LSPs with lspconfig
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup(capabilities)
-lspconfig.rust_analyzer.setup(capabilities)
-lspconfig.terraformls.setup(capabilities)
-lspconfig.csharp_ls.setup(capabilities)
-if vim.fn.hostname() == "FXJXWHJ0W0.local" then
-  lspconfig.ts_ls.setup(capabilities)
-end
-
-vim.lsp.config['tea-ls'] = {
-  filetypes = { 'tea', 'teafile' },
-}
-
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('VimrcLspConfig', {}),
-  callback = function(ev)
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<leader>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<leader>=', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
-})
-
--- Enable lens
-require'lsp-lens'.setup({
-  sections = {
-    definition = true,
-    references = true,
-    implements = true,
-    git_authors = false,
-  }
-})
-EOF
-
-  " Neotest
-  lua << EOF
-local neotest = require("neotest")
-neotest.setup({
-  adapters = {
-    require("neotest-dotnet"),
-    require("neotest-python"),
-    require("neotest-jest")
-  },
-})
-vim.keymap.set('n', '<leader>n', function() neotest.run.run() end)
-vim.keymap.set('n', '<leader>N', function() neotest.run.run(vim.fn.expand("%")) end)
-EOF
-command! NeotestSummary lua require("neotest").summary.toggle()
-
-  " nvim-lint
-  lua <<EOF
-require('lint').linters_by_ft = {
-  javascript= {'eslint'},
-  terraform = {'tflint', 'tfsec'},
-  typescript = {'eslint'},
-  typescriptreact = {'eslint'},
-  sh = {'shellcheck'}
-}
-EOF
-
-  augroup VimrcNvim
-    autocmd!
-
-    autocmd BufWritePost * lua require('lint').try_lint()
-    autocmd BufRead * lua require('lint').try_lint()
-  augroup END
-endif
