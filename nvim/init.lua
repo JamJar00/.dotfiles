@@ -16,7 +16,8 @@ vim.opt.autoindent = true
 -- Fix dumb Mac backspace behaviour
 vim.opt.backspace = "indent,eol,start"
 
--- Set line numbers and add the row/col at the bottom
+-- Set hybrid line numbers
+vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- When autocompleting commands, show possible options (use Ctrl-N/Ctrl-P to cycle through)
@@ -61,7 +62,7 @@ vim.opt.scrolloff = 8
 vim.opt.cursorline = true
 
 -- Enable persistent undo and move swap files
-vim.cmd("!mkdir -p " .. vim.fn.expand("~") .. "/.vim/backups > /dev/null 2>&1")
+vim.cmd("silent! !mkdir -p " .. vim.fn.expand("~") .. "/.vim/backups > /dev/null 2>&1")
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand("~") .. "/.vim/undodir"
 vim.opt.directory = vim.fn.expand("~") .. "/.vim/backups//"
