@@ -25,7 +25,7 @@ return {
     require("nvim-tree").setup(opts)
 
      function open_nvim_tree()
-      local ani = require("nvim-tree.api")
+      local api = require("nvim-tree.api")
       local path = vim.api.nvim_buf_get_name(0)
       local bufnr = vim.fn.bufnr()
       if api.tree.is_tree_buf(bufnr) then

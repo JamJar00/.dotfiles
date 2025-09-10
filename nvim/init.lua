@@ -105,6 +105,14 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
   command = 'silent! !terraform fmt %'
 })
 
+if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
+  vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    pattern = {'*.tea', '*.teafile', 'teafile'},
+    group = vimrcgroup,
+    command = 'set filetype=tea'
+  })
+end
+
 -- TODO In the qf window, tab 'previews'
 -- autocmd FileType qf map <buffer> <tab> <CR><C-W>p
 

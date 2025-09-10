@@ -25,6 +25,12 @@ return {
     --   lspconfig.ts_ls.setup(capabilities)
     -- end
 
+    if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
+      vim.lsp.config['tea-ls'] = {
+        filetypes = { 'tea', 'teafile' },
+      }
+    end
+
     -- Use LspAttach autocommand to only map the following keys
     -- after the language server attaches to the current buffer
     vim.api.nvim_create_autocmd('LspAttach', {
