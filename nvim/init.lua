@@ -62,6 +62,7 @@ vim.opt.scrolloff = 8
 vim.opt.cursorline = true
 
 -- Enable persistent undo and move swap files
+-- TODO are these set by default in nvim? Also they should use the .local/state/nvim dir
 vim.cmd("silent! !mkdir -p " .. vim.fn.expand("~") .. "/.vim/backups > /dev/null 2>&1")
 vim.opt.undofile = true
 vim.opt.undodir = vim.fn.expand("~") .. "/.vim/undodir"
@@ -73,14 +74,24 @@ if vim.fn.has('nvim') and string.find(vim.fn.system('$PATH'), '/mnt/c/Windows') 
   vim.g.netrw_browsex_viewer = "cmd.exe /C start"
 end
 
+-- Map leader to space
 vim.g.mapleader = " "
 
+-- Load plugins
 require("config.lazy")
 
-require("config.terminal")
-
+-- Keymaps
 vim.keymap.set('n', 'Y', 'y$')
 
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+-- Load terminal mappings
+require("config.terminal")
+
+-- Autogroups
 local vimrcgroup = vim.api.nvim_create_augroup('vimrc', { clear = true })
 
 -- Strip trailing whitespace and windows newlines
@@ -115,10 +126,3 @@ end
 
 -- TODO In the qf window, tab 'previews'
 -- autocmd FileType qf map <buffer> <tab> <CR><C-W>p
-
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
