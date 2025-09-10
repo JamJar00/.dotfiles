@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 mkdir -p ~/.config/nvim
-ln -s $(pwd)/vimrc ~/.config/nvim/init.vim || true
+ln -s $(pwd)/nvim ~/.config/nvim || true
+
+ln -s $(pwd)/vimrc ~/.vimrc || true
 
 mkdir -p /workspace/.vim
 ln -s /workspace/.vim ~/.vim || true

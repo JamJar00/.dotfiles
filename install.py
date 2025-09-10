@@ -48,7 +48,7 @@ def install_rust_component(name):
 envbot.symlink("bashrc", "~/.bashrc")
 envbot.symlink("gitconfig", "~/.gitconfig")
 envbot.symlink("vimrc", "~/.vimrc")
-envbot.symlink("vimrc", "~/.config/nvim/init.vim")
+envbot.symlink("nvim", "~/.config/nvim")
 envbot.symlink("config.fish", "~/.config/fish/config.fish")
 
 if envbot.platform == "Darwin":
