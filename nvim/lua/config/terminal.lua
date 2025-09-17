@@ -7,6 +7,7 @@ toggle_terminal = function ()
   else
     vim.cmd("botright sbuffer " .. term_buf_nr)
   end
+  vim.cmd('startinsert')
 end
 
 vim.keymap.set('n', '<Leader>t', toggle_terminal)
