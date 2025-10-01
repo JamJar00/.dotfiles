@@ -28,7 +28,7 @@ sudo curl https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt -o 
 
 echo "export EDITOR=nvim" >> ~/.bashrc
 echo "export GIT_EDITOR=nvim" >> ~/.bashrc
-echo "export PS1='$$(prompt --exit-code $$?)'" >> ~/.bashrc
+echo "export PS1='\$(prompt --exit-code \$?)'" >> ~/.bashrc
 
 echo
 echo "Run:"
