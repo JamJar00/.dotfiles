@@ -20,8 +20,16 @@ sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
 
 pip install pynvim
 
-git config --global core.editor "nvim"
-
 sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+
+curl https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt -o /usr/local/bin/prompt
+
+echo "export EDITOR=nvim" >> ~/.bashrc
+echo "export GIT_EDITOR=nvim" >> ~/.bashrc
+echo "export PS1='$$(prompt --exit-code $$?)'" >> ~/.bashrc
+
+echo
+echo "Run:"
+echo "  source ~/.bashrc"
