@@ -24,7 +24,8 @@ sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
 sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
 sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
 
-sudo curl https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt -o /usr/local/bin/prompt
+sudo curl -L https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt -o /usr/local/bin/prompt
+sudo chmod +x /usr/local/bin/prompt
 
 echo "export EDITOR=nvim" >> ~/.bashrc
 echo "export GIT_EDITOR=nvim" >> ~/.bashrc
