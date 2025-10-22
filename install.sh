@@ -8,8 +8,8 @@ ln -s $(pwd)/vimrc ~/.vimrc || true
 mkdir -p /workspace/.vim ~/.vim/
 ln -s /workspace/.vim ~/.vim/ || true
 
-mkdir -p /workspace/.nvim ~/.local/share/nvim/
-ln -s /workspace/.nvim ~/.local/share/nvim/ || true
+mkdir -p /workspace/.nvim ~/.local/share
+ln -s /workspace/.nvim ~/.local/share/nvim || true
 
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
