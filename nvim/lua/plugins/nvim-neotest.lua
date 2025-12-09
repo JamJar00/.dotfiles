@@ -1,5 +1,6 @@
 return {
   "nvim-neotest/neotest",
+  enabled = os.getenv("GITPOD_REPO_ROOT") ~= "",
   dependencies = {
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
