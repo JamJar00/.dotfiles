@@ -1,5 +1,6 @@
 return {
   'Yggdroot/LeaderF',
+  lazy = false,
   init = function()
     -- Remap up/down in LeaderF
     vim.g.Lf_CommandMap = {
