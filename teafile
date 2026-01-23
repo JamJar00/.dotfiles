@@ -3,12 +3,14 @@ import tea/beta/brew
 import tea/beta/pipx
 
 import files/gitconfig.tea
+import files/vimrc.tea
+import files/nvim.tea
 import tools/fish.tea
 import tools/neovim.tea
 import tools/prompt.tea
 import tools/rust-analyzer.tea
 
-set shell = sh
+set shell sh
 
 define type group
   for timestamp do { echo 2147483647 } # This only works when dealing with booleans. When files have timestamps this will hide changes from things above
@@ -63,6 +65,8 @@ end
 group base
   depends on [
     file "~/.gitconfig",
+    file "~/.vimrc",
+    file "~/.config/nvim",
 
     tea:command fish,
     tea:command nvim,
@@ -87,7 +91,6 @@ task install
     group terraform,
 
     tea:command rust-analyzer,
-
     tea:brew:package minikube,
     tea:brew:package shellcheck,
     tea:brew:cask openvpn-connect,
@@ -105,6 +108,12 @@ task install
     tea:command rust-analyzer
   ]
 
+    # tea:scoop:package 7zip,
+    # tea:scoop:package coretemp,
+    # tea:scoop:package cpuz,
+    # tea:scoop:package screentogif,
+    # tea:scoop:package rclone,
+    # tea:scoop:package yt-dlp
     # tea:scoop:package win32yank
     # tea:scoop:package CascadiaCode-NF-Mono
   do {}
@@ -113,11 +122,7 @@ end
 task install
   depends on [
     tea:platform:hostname FLUFFLES,
-
-    group base,
-
-    tea:command rust-analyzer,
-    tea:pipx:package pyright
+    tea:platform:os Windows,
   ]
     # tea:scoop:package 7zip,
     # tea:scoop:package coretemp,
@@ -130,10 +135,22 @@ task install
   do {}
 end
 
+task install
+  depends on [
+    tea:platform:hostname FLUFFLES,
+    tea:platform:os Linux,
+
+    group base,
+
+    tea:command docker,
+    tea:command rust-analyzer,
+    tea:pipx:package pyright
+  ]
+  do {}
+end
+
 task install-wacom-tablet-drivers
   depends on [
-    tea:platform:hostname FEATHERS,
-
     tea:brew:cask wacom-tablet
   ]
 

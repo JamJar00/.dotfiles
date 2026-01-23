@@ -1,0 +1,32 @@
+import tea
+import tea/platform
+import tea/beta/apt
+import tea/beta/brew
+
+tea:command docker
+  depends on [
+    tea:platform Linux,
+
+    tea:command curl,
+    tea:apt:package apt-transport-https,
+    tea:apt:package ca-certificates,
+    tea:apt:packagesoftware-properties-common
+  ]
+  do {
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    apt update
+    apt install docker-ce
+    sudo gpasswd -a $USER docker
+    sudo service docker start
+  }
+end
+
+tea:command docker
+  depends on [
+    tea:platform Darwin,
+
+    tea:brew:package docker
+  ]
+  do {}
+end
