@@ -1,0 +1,31 @@
+file "$HOME/.gitconfig"
+  depends on tea:platform:hostname FXJXWHJ0W0.local
+  do {
+	git config --global user.email "jamie.read@and.digital"
+	git config --global user.name "Jamie Read"
+	git config --global user.signingkey "35CB40304B7613F7DBCFE4FACE897D0FD28C0605"
+    git config --global core.editor "nvim"
+    git config --global init.defaultBranch "main"
+    git config --global commit.gpgsign "true"
+    git config --global push.default "current"
+
+	git config --global push.autoSetupRemote "true"
+    git config --global include.path ".gitconfig.local"
+  }
+end
+
+file "$HOME/.gitconfig"
+  depends on tea:platform:hostname FEATHERS
+  do {
+	git config --global user.email "hey@jread.dev"
+	git config --global user.name "Jamie Read"
+	git config --global user.signingkey "3240166C4C19F9D184AB9248AAC8EBC0C2A8A5E2"
+    git config --global core.editor "nvim"
+    git config --global init.defaultBranch "main"
+    git config --global commit.gpgsign "true"
+    git config --global push.default "current"
+
+	git config --global push.autoSetupRemote "true"
+    git config --global include.path ".gitconfig.local"
+  }
+end

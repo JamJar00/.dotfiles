@@ -1,0 +1,32 @@
+import tea
+import tea/platform
+
+set shell sh
+
+tea:command nvim
+  depends on [tea:platform:os Linux, tea:command pip3] #, file "~/.config/nvim/init.vim"]
+  do {
+    # Can also install through package repository but doesn't work on gitpods
+    # sudo add-apt-repository -y ppa:neovim-ppa/unstable
+    # sudo apt install neovim
+
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+    sudo rm -rf /opt/nvim
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+    rm nvim-linux-x86_64.tar.gz
+
+    echo 'export PATH="$PATH:/opt/nvim-linux-x86_64/bin"' >> ~/.bashrc
+
+    pip3 install pynvim
+    nvim --headless +PlugInstall +qall
+  }
+end
+
+tea:command nvim
+  depends on [tea:command brew, tea:command pip3] #, file "~/.config/nvim/init.vim"]
+  do {
+    brew install neovim
+    pip3 install pynvim
+    nvim --headless +PlugInstall +qall
+  }
+end

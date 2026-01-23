@@ -1,0 +1,20 @@
+import tea
+import tea/platform
+
+set shell sh
+
+tea:command fish
+  depends on tea:command apt
+  do {
+    sudo add-apt-repository -y ppa:fish-shell/release-3
+    sudo apt install fish
+  }
+end
+
+tea:command fish
+  depends on [tea:command brew]
+  do {
+    brew install fish
+  }
+end
+

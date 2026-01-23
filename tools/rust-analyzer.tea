@@ -1,0 +1,12 @@
+import tea
+
+import ./rustup.tea
+
+set shell sh
+
+tea:command rust-analyzer
+  depends on tea:command rustup
+  do {
+    rustup component add rust-analyzer
+  }
+end

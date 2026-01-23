@@ -1,0 +1,15 @@
+import tea
+
+set shell sh
+
+tea:command prompt
+  depends on [tea:command git, tea:command cargo]
+  do {
+    mkdir -p ~/.cache
+    git_clone git@github.com:JamJar00/prompt.git ~/.cache/prompt
+    cd ~/.cache/prompt && cargo build
+
+    echo 'fish_add_path ~/.cache/prompt/target/debug' >> ~/.config/fish/config.fish.local
+    # TODO add to bashrc and set PS1s in fish and bash
+  }
+end

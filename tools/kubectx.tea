@@ -1,0 +1,20 @@
+import tea
+import tea/platform
+
+set shell sh
+
+tea:command kubectx
+  depends on [tea:platform:os Linux, tea:command kubectl, tea:command git]
+  do {
+    sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
+    sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx
+    sudo ln -s /opt/kubectx/kubens /usr/local/bin/kubens
+  }
+end
+
+tea:command kubectx
+  depends on [tea:platform:os Darwin, tea:command kubectl]
+  do {
+    brew install kubectx
+  }
+end

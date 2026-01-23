@@ -1,0 +1,26 @@
+import tea
+import tea/platform
+import tea/beta/brew
+
+set shell sh
+
+tea:command rustup
+  depends on [tea:command brew]
+  do {
+    brew install rustup
+  }
+end
+
+tea:command rustup
+  depends on [tea:command apt]
+  do {
+    apt install rustup
+  }
+end
+
+tea:command rustup
+  depends on [tea:platform:os Linux, tea:command curl]
+  do {
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  }
+end

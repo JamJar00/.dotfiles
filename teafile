@@ -1,0 +1,104 @@
+import tea
+import tea/beta/brew
+import tea/beta/pipx
+
+import files/gitconfig.tea
+import tools/fish.tea
+import tools/neovim.tea
+import tools/prompt.tea
+import tools/rust-analyzer.tea
+
+define type group
+  for timestamp do { echo 2147483647 } # This only works when dealing with booleans. When files have timestamps this will hide changes from things above
+end
+
+group base
+  depends on [
+    file "~/.gitconfig",
+
+    tea:command fish,
+    tea:command nvim,
+    tea:command prompt,
+
+    tea:pipx:package poetry,
+    tea:pipx:package pyright
+  ]
+  do {}
+end
+
+task install
+  depends on [
+    tea:platform:hostname FXJXWHJ0W0.local,
+
+    group base,
+
+    tea:command rust-analyzer,
+
+    tea:brew:package helm,
+    tea:brew:package kubectx,
+    tea:brew:package kubernetes-cli,
+    tea:brew:package minikube,
+    tea:brew:package shellcheck,
+    tea:brew:package terraform-ls,
+    tea:brew:package tflint,
+    tea:brew:package tfsec,
+
+    tea:brew:cask openvpn-connect,
+    tea:brew:cask pritunl
+  ]
+  do {}
+end
+
+task install
+  depends on [
+    tea:platform:hostname FEATHERS,
+
+    group base,
+
+    tea:command rust-analyzer
+  ]
+
+    # tea:scoop:package win32yank
+    # tea:scoop:package CascadiaCode-NF-Mono
+  do {}
+end
+
+task install
+  depends on [
+    tea:platform:hostname FLUFFLES,
+
+    group base,
+
+    tea:command rust-analyzer,
+    tea:pipx:package pyright
+  ]
+
+    # tea:scoop:package win32yank
+    # tea:scoop:package CascadiaCode-NF-Mono
+  do {}
+end
+
+task install-wacom-tablet-drivers
+  depends on [
+    tea:platform:hostname FEATHERS,
+
+    tea:brew:cask wacom-tablet
+  ]
+
+  do {}
+end
+
+# Override for some scoop installs so that they depend on the right bucket
+# tea:scoop:package win32yank
+#   depends on tea:scoop:bucket extras
+#   do {
+#     scoop install win32yank
+#   }
+# end
+#
+# tea:scoop:package CascadiaCode-NF-Mono
+#   depends on tea:scoop:bucket nerd-fonts
+#   do {
+#     scoop install CascadiaCode-NF-Mono
+#   }
+# end
