@@ -2,9 +2,12 @@ import tea
 import tea/beta/brew
 import tea/beta/pipx
 
+import files/bashrc.tea
+import files/config.fish.tea
 import files/gitconfig.tea
-import files/vimrc.tea
 import files/nvim.tea
+import files/vimrc.tea
+
 import tools/aws.tea
 import tools/docker.tea
 import tools/fish.tea
@@ -68,9 +71,11 @@ end
 
 group base
   depends on [
+    file "~/.bashrc",
+    file "~/.config/fish/config.fish",
+    file "~/.config/nvim",
     file "~/.gitconfig",
     file "~/.vimrc",
-    file "~/.config/nvim",
 
     tea:command fish,
     tea:command nvim,

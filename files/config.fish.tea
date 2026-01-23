@@ -1,0 +1,6 @@
+file "$HOME/.config/fish/config.fish"
+  do {
+    mkdir ~/.config/fish
+    ln -s $(pwd)/config.fish ~/.config/fish/config.fish
+  }
+end
