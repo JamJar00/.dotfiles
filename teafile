@@ -8,8 +8,56 @@ import tools/neovim.tea
 import tools/prompt.tea
 import tools/rust-analyzer.tea
 
+set shell = sh
+
 define type group
   for timestamp do { echo 2147483647 } # This only works when dealing with booleans. When files have timestamps this will hide changes from things above
+end
+
+define type dotnet_tool
+  for timestamp do {
+    dotnet tool list --global | grep -q "$TEA_FOR" && echo 0
+  }
+end
+
+# TODO write node install script
+
+dotnet_tool (*)
+  depends on tea:command dotnet
+  do {
+    dotnet tool install --global "$TEA_FOR"
+  }
+end
+
+group csharp
+  depends on dotnet_tool csharp-ls
+  do {}
+end
+
+group kubernetes
+  depends on [
+    tea:brew:package helm,
+    tea:brew:package kubectx,
+    tea:brew:package kubernetes-cli
+  ]
+  do {}
+end
+
+group python
+  depends on [
+    tea:pipx:package poetry,
+    tea:pipx:package pyright
+  ]
+  do {}
+end
+
+group terraform
+  depends on [
+    tea:brew:package terraform-ls,
+    tea:brew:package tflint,
+    tea:brew:package tfsec
+  ]
+  do {}
 end
 
 group base
@@ -18,10 +66,12 @@ group base
 
     tea:command fish,
     tea:command nvim,
+    tea:command node,
     tea:command prompt,
 
-    tea:pipx:package poetry,
-    tea:pipx:package pyright
+    tea:command node,
+
+    group python
   ]
   do {}
 end
@@ -32,17 +82,14 @@ task install
 
     group base,
 
+    group csharp,
+    group kubernetes,
+    group terraform,
+
     tea:command rust-analyzer,
 
-    tea:brew:package helm,
-    tea:brew:package kubectx,
-    tea:brew:package kubernetes-cli,
     tea:brew:package minikube,
     tea:brew:package shellcheck,
-    tea:brew:package terraform-ls,
-    tea:brew:package tflint,
-    tea:brew:package tfsec,
-
     tea:brew:cask openvpn-connect,
     tea:brew:cask pritunl
   ]
@@ -72,7 +119,12 @@ task install
     tea:command rust-analyzer,
     tea:pipx:package pyright
   ]
-
+    # tea:scoop:package 7zip,
+    # tea:scoop:package coretemp,
+    # tea:scoop:package cpuz,
+    # tea:scoop:package screentogif,
+    # tea:scoop:package rclone,
+    # tea:scoop:package yt-dlp
     # tea:scoop:package win32yank
     # tea:scoop:package CascadiaCode-NF-Mono
   do {}

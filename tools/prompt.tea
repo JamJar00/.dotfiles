@@ -9,7 +9,10 @@ tea:command prompt
     git_clone git@github.com:JamJar00/prompt.git ~/.cache/prompt
     cd ~/.cache/prompt && cargo build
 
-    echo 'fish_add_path ~/.cache/prompt/target/debug' >> ~/.config/fish/config.fish.local
+    if ! grep -qF 'fish_add_path ~/.cache/prompt/target/debug' "~/.config/fish/config.fish.local"; then
+      echo 'fish_add_path ~/.cache/prompt/target/debug' >> ~/.config/fish/config.fish.local
+    fi
+
     # TODO add to bashrc and set PS1s in fish and bash
   }
 end
