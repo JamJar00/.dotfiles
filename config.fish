@@ -9,6 +9,8 @@ if status is-interactive
   fish_add_path ~/.bin
   fish_add_path ~/.local/bin
 
+  fish_add_path ~/Projects/prompt/target/debug
+
   command -v mcfly &> /dev/null && mcfly init fish | source
 
   [ -s ~/.config/fish/config.fish.local ] && source ~/.config/fish/config.fish.local
@@ -20,5 +22,9 @@ if status is-interactive
     else
       prompt --exit-code $status
     end
+  end
+
+  function tea
+    poetry -P ~/Projects/tea run tea $argv
   end
 end

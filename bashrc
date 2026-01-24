@@ -71,3 +71,5 @@ command -v kubectl &> /dev/null && source <(kubectl completion bash)
 
 # Set prompt
 export PS1='$(prompt --exit-code $? --message "bash")'
+
+alias tea="poetry -P ~/Projects/tea run tea"

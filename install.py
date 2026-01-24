@@ -11,7 +11,15 @@ import envbot.packs.terraform
 import envbot.packs.node
 
 
+# TODO Things that didn't install to Fluffles (Linux)
+# - rustup
+# - pip (needed a sudo apt install python3-pip as python is a managed environment)
+# - poetry (needed a sudo apt install python3-poetry)
+# - pynvim (needed a pipx install pynvim as not available in apt)
+# - Nerdfonts
+
 parser = argparse.ArgumentParser()
+parser.add_argument("--with-dotnet", action="store_true")
 parser.add_argument("--with-wacom", action="store_true")
 
 args = envbot.init_from_parser(parser)
@@ -41,6 +49,15 @@ def install_rust_component(name):
 
     envbot.shell("rustup component add " + name)
 
+
+@envbot.step("Install NerdFont Manually")
+def install_nerdfont_manually():
+    envbot.shell("curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaMono.zip -o CascadiaMono.zip")
+    envbot.shell("unzip CascadiaMono.zip *.ttf")
+    envbot.shell("mkdir -p ~/.fonts")
+    envbot.shell("mv *.ttf ~/.fonts")
+    envbot.shell("fc-cache -fv")
+    envbot.shell("rm CascadiaMono.zip")
 
 #
 # Generic stuff
@@ -73,6 +90,10 @@ if envbot.platform == "Linux":
     envbot.add_package_repositories("ppa:fish-shell/release-3", "ppa:neovim-ppa/unstable")
     envbot.install("fish", "neovim")
 
+    envbot.ensure_file_contains_text("/etc/profile.d/use-xinput2.sh", "export MOZ_USE_XINPUT2=1")
+
+    install_nerdfont_manually()
+
 envbot.install("pynvim", package_manager="pip")
 envbot.shell("nvim --headless +PlugInstall +qall")
 
@@ -85,11 +106,13 @@ envbot.chsh("fish")
 #
 if envbot.hostname == "FXJXWHJ0W0.local":
     # dotnet-sdk omitted as the Homebrew install doesn't set it up right for csharp-ls
-    envbot.install("helm", "kubectx", "kubernetes-cli", "minikube", "openvpn-connect", "pritunl", "rust-analyzer", "shellcheck", "terraform-ls", "tflint", "tfsec")
+    envbot.install("helm", "kubectx", "kubernetes-cli", "minikube", "openvpn-connect", "pritunl",  "shellcheck", "terraform-ls", "tflint", "tfsec")
 
     envbot.packs.terraform.install_version("1.3.1")
 
-    install_dotnet_tool("csharp-ls")
+    if args.with_dotnet:
+        install_dotnet_tool("csharp-ls")
+
     install_rust_component("rust-analyzer")
 
     envbot.install_package_manager("pipx")
@@ -99,10 +122,12 @@ elif envbot.hostname == "FEATHERS" or envbot.hostname == "FLUFFLES":
     envbot.packs.node.install_version("22.12.0")
 
     envbot.add_package_repositories("ppa:fish-shell/release-3", "ppa:neovim-ppa/unstable")
-    envbot.add_package_repositories("extras", "nerd-fonts", package_manager="scoop")
 
-    envbot.install("dotnet-sdk-8.0")
-    envbot.install("7zip", "coretemp", "cpu-z", "screentogif", "rclone", "yt-dlp", package_manager="scoop")
+    if args.with_dotnet:
+        envbot.install("dotnet-sdk-8.0")
+
+    if envbot.platform == "Windows":
+        envbot.install("7zip", "coretemp", "cpu-z", "screentogif", "rclone", "yt-dlp", package_manager="scoop")
 
     @envbot.step("Install Docker")
     def install_docker():
@@ -113,9 +138,10 @@ elif envbot.hostname == "FEATHERS" or envbot.hostname == "FLUFFLES":
         envbot.shell("sudo gpasswd -a $USER docker")
         envbot.shell("sudo service docker start")
 
-    install_docker()
+    # install_docker()
 
-    install_dotnet_tool("csharp-ls")
+    if args.with_dotnet:
+        install_dotnet_tool("csharp-ls")
     install_rust_component("rust-analyzer")
 
     envbot.install_package_manager("pipx")
