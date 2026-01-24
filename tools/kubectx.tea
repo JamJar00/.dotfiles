@@ -4,7 +4,7 @@ import tea/platform
 set shell sh
 
 tea:command kubectx
-  depends on [tea:platform:os Linux, tea:command kubectl, tea:command git]
+  depends on [tea:platform:os "GNU/Linux", tea:command kubectl, tea:command git]
   do {
     sudo git clone https://github.com/ahmetb/kubectx /opt/kubectx
     sudo ln -s /opt/kubectx/kubectx /usr/local/bin/kubectx

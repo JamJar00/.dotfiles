@@ -4,7 +4,7 @@ import tea/platform
 set shell sh
 
 tea:command nvim
-  depends on [tea:platform:os Linux, tea:command pip3] #, file "~/.config/nvim/init.vim"]
+  depends on [tea:platform:os "GNU/Linux", tea:command pip3] #, file "~/.config/nvim/init.vim"]
   do {
     # Can also install through package repository but doesn't work on gitpods
     # sudo add-apt-repository -y ppa:neovim-ppa/unstable

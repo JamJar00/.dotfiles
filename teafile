@@ -5,6 +5,8 @@ import tea/beta/pipx
 import files/gitconfig.tea
 import files/vimrc.tea
 import files/nvim.tea
+import tools/aws.tea
+import tools/docker.tea
 import tools/fish.tea
 import tools/neovim.tea
 import tools/prompt.tea
@@ -138,10 +140,11 @@ end
 task install
   depends on [
     tea:platform:hostname FLUFFLES,
-    tea:platform:os Linux,
+    tea:platform:os "GNU/Linux",
 
     group base,
 
+    tea:command aws,
     tea:command docker,
     tea:command rust-analyzer,
     tea:pipx:package pyright

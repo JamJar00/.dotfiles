@@ -19,7 +19,7 @@ tea:command rustup
 end
 
 tea:command rustup
-  depends on [tea:platform:os Linux, tea:command curl]
+  depends on [tea:platform:os "GNU/Linux", tea:command curl]
   do {
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   }
