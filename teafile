@@ -10,6 +10,7 @@ import tools/docker.tea
 import tools/fish.tea
 import tools/neovim.tea
 import tools/prompt.tea
+import tools/tree-sitter-cli.tea
 import tools/rust-analyzer.tea
 
 set shell sh
@@ -74,8 +75,7 @@ group base
     tea:command nvim,
     tea:command node,
     tea:command prompt,
-
-    tea:command node,
+    tea:command tree-sitter-cli,
 
     group python
   ]

@@ -50,6 +50,14 @@ def install_rust_component(name):
     envbot.shell("rustup component add " + name)
 
 
+@envbot.step("Install Cargo Package", "{0}")
+def install_cargo_package(name):
+    if envbot.util.is_command_installed(name):
+        raise envbot.StepSkipped()
+
+    envbot.shell("cargo install " + name + " --locked")
+
+
 @envbot.step("Install NerdFont Manually")
 def install_nerdfont_manually():
     envbot.shell("curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaMono.zip -o CascadiaMono.zip")
@@ -93,6 +101,8 @@ if envbot.platform == "Linux":
     envbot.ensure_file_contains_text("/etc/profile.d/use-xinput2.sh", "export MOZ_USE_XINPUT2=1")
 
     install_nerdfont_manually()
+
+install_cargo_package("tree-sitter-cli")
 
 envbot.install("pynvim", package_manager="pip")
 envbot.shell("nvim --headless +PlugInstall +qall")

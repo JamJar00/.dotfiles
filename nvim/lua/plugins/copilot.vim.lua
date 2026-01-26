@@ -1,6 +1,6 @@
 return {
   'github/copilot.vim',
-  enabled = vim.fn.hostname() == "FXJXWHJ0W0.local",
+  enabled = vim.fn.hostname() == "FXJXWHJ0W0.local" or vim.fn.hostname() == "FLUFFLES",
   init = function()
     vim.g.copilot_no_tab_map = true
   end,
