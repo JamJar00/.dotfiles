@@ -33,6 +33,7 @@ return {
     vim.opt.foldlevelstart = 99
     vim.opt.foldnestmax = 4
 
+    -- If this wasn't present at install time you might need to run TSInstallSync tea
     if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
       local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
       parser_config.tea = {

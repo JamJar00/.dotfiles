@@ -10,9 +10,9 @@ tea:apt:package libclang-dev
   }
 end
 
-tea:command tree-sitter-cli
+tea:command tree-sitter
   depends on [tea:command cargo, tea:apt:package libclang-dev]
   do {
-    cargo install $TEA_FOR --locked
+    cargo install tree-sitter-cli --locked
   }
 end
