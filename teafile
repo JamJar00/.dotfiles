@@ -12,6 +12,7 @@ import tools/neovim.tea
 import tools/prompt.tea
 import tools/tree-sitter.tea
 import tools/rust-analyzer.tea
+import tools/spotify.tea
 
 set shell sh
 
@@ -76,6 +77,8 @@ group base
     tea:command node,
     tea:command prompt,
     tea:command tree-sitter,
+
+    tea:command spotify,
 
     group python
   ]
