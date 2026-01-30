@@ -34,6 +34,10 @@ echo "export EDITOR=nvim" >> ~/.bashrc
 echo "export GIT_EDITOR=nvim" >> ~/.bashrc
 # echo "export PS1='\$(prompt --exit-code \$?)'" >> ~/.bashrc
 
+git config --global core.editor "nvim"
+git config --global push.default "current"
+git config --global push.autoSetupRemote true
+
 echo
 echo "Run:"
 echo "  source ~/.bashrc"
