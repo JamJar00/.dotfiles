@@ -13,7 +13,7 @@ tea:command kubectx
 end
 
 tea:command kubectx
-  depends on [tea:platform:os Darwin, tea:command kubectl]
+  depends on [tea:platform:os Darwin, tea:command kubectl, tea:command brew]
   do {
     brew install kubectx
   }

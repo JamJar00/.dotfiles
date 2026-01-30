@@ -12,9 +12,9 @@ tea:command rustup
 end
 
 tea:command rustup
-  depends on [tea:command apt]
+  depends on [tea:command apt-get]
   do {
-    apt install rustup
+    apt-get install rustup
   }
 end
 

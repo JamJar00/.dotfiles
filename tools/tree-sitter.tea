@@ -5,8 +5,9 @@ import tea/beta/apt
 set shell sh
 
 tea:apt:package libclang-dev
+  depends on tea:command apt-get
   do {
-    apt install $TEA_FOR
+    apt-get install $TEA_FOR
   }
 end
 
@@ -14,5 +15,12 @@ tea:command tree-sitter
   depends on [tea:command cargo, tea:apt:package libclang-dev]
   do {
     cargo install tree-sitter-cli --locked
+  }
+end
+
+tea:apt:package tree-sitter
+  depends on tea:command brew
+  do {
+    brew install $TEA_FOR
   }
 end
