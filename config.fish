@@ -23,8 +23,4 @@ if status is-interactive
       prompt --exit-code $status
     end
   end
-
-  function tea
-    poetry -P ~/Projects/tea run tea $argv
-  end
 end
