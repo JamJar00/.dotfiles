@@ -13,6 +13,8 @@ if status is-interactive
 
   command -v mcfly &> /dev/null && mcfly init fish | source
 
+  set -x AWS_DEFAULT_REGION "eu-west-2"
+
   [ -s ~/.config/fish/config.fish.local ] && source ~/.config/fish/config.fish.local
   [ -s ~/.config/fish/config.local.fish ] && source ~/.config/fish/config.local.fish
 

@@ -13,6 +13,7 @@ import tools/docker.tea
 import tools/fish.tea
 import tools/neovim.tea
 import tools/prompt.tea
+import tools/terraform.tea
 import tools/tree-sitter.tea
 import tools/rust-analyzer.tea
 import tools/spotify.tea
@@ -158,6 +159,7 @@ task install
     tea:command docker,
     tea:command rust-analyzer,
     tea:command spotify,
+    tea:command terraform,
     tea:pipx:package pyright
   ]
   do {}
