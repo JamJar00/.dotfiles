@@ -16,13 +16,13 @@ return {
     capabilities = coq.lsp_ensure_capabilities()
 
     -- Setup LSPs with lspconfig
-    local lspconfig = require('lspconfig')
-    lspconfig.pyright.setup(capabilities)
-    lspconfig.rust_analyzer.setup(capabilities)
-    lspconfig.terraformls.setup(capabilities)
-    -- lspconfig.csharp_ls.setup(capabilities)
+    vim.lsp.enable("pyright")
+    vim.lsp.enable("rust_analyzer")
+    vim.lsp.enable("terraformls")
+    -- vim.lsp.enable("csharp_ls")
+
     -- if vim.fn.hostname() == "FXJXWHJ0W0.local" then
-    --   lspconfig.ts_ls.setup(capabilities)
+    --   vim.lsp.config.enable("ts_ls")
     -- end
 
     if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
