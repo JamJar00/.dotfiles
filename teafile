@@ -9,6 +9,7 @@ import files/nvim.tea
 import files/vimrc.tea
 
 import tools/aws.tea
+import tools/copilot.tea
 import tools/docker.tea
 import tools/fish.tea
 import tools/neovim.tea
@@ -160,6 +161,7 @@ task install
     tea:command rust-analyzer,
     tea:command spotify,
     tea:command terraform,
+    tea:command copilot,
     tea:pipx:package pyright
   ]
   do {}
