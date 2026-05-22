@@ -1,0 +1,10 @@
+import tea
+
+set shell bash
+
+tea:command copilot
+  depends on [tea:command npm]
+  do {
+    npm install -g @github/copilot
+  }
+end
