@@ -9,7 +9,6 @@ import files/nvim.tea
 import files/vimrc.tea
 
 import tools/aws.tea
-import tools/claude.tea
 import tools/copilot.tea
 import tools/docker.tea
 import tools/fish.tea
@@ -92,9 +91,8 @@ group base
 end
 
 task install
+  if tea:platform:hostname FXJXWHJ0W0.local
   depends on [
-    tea:platform:hostname FXJXWHJ0W0.local,
-
     group base,
 
     group csharp,
@@ -112,9 +110,8 @@ task install
 end
 
 task install
+  if tea:platform:hostname FEATHERS
   depends on [
-    tea:platform:hostname FEATHERS,
-
     group base,
 
     tea:command rust-analyzer,
@@ -133,10 +130,11 @@ task install
 end
 
 task install
-  depends on [
+  if [
     tea:platform:hostname FLUFFLES,
-    tea:platform:os Windows,
-
+    tea:platform:os Windows
+  ]
+  depends on [
     tea:command spotify
   ]
     # tea:scoop:package 7zip,
@@ -151,10 +149,11 @@ task install
 end
 
 task install
-  depends on [
+  if [
     tea:platform:hostname FLUFFLES,
-    tea:platform:os "GNU/Linux",
-
+    tea:platform:os "GNU/Linux"
+  ]
+  depends on [
     group base,
 
     tea:command aws,
@@ -162,7 +161,6 @@ task install
     tea:command rust-analyzer,
     tea:command spotify,
     tea:command terraform,
-    tea:command claude,
     tea:command copilot,
     tea:pipx:package pyright
   ]
