@@ -1,0 +1,28 @@
+import tea
+import tea/platform
+
+tea:command dotnet
+  depends on [
+    tea:platform:os "GNU/Linux",
+
+    tea:command apt-get
+  ]
+  do #{
+    sudo apt-get update
+    sudo apt-get install -y dotnet-sdk-10.0
+  }#
+end
+
+define type dotnet_tool
+  for timestamp do {
+    dotnet tool list --global | grep -q "$TEA_FOR" && echo 0
+  }
+end
+
+dotnet_tool (*)
+  depends on tea:command dotnet
+  do {
+    dotnet tool install --global "$TEA_FOR"
+  }
+end
+

@@ -19,7 +19,7 @@ return {
     vim.lsp.enable("pyright")
     vim.lsp.enable("rust_analyzer")
     vim.lsp.enable("terraformls")
-    -- vim.lsp.enable("csharp_ls")
+    vim.lsp.enable("csharp_ls")
 
     -- if vim.fn.hostname() == "FXJXWHJ0W0.local" then
     --   vim.lsp.config.enable("ts_ls")

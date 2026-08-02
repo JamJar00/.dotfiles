@@ -1,0 +1,11 @@
+import tea
+
+set shell sh
+
+tea:command rclone
+  depends on [tea:platform:os "GNU/Linux", tea:command apt]
+  do {
+    apt install -y rclone
+  }
+end
+

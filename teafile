@@ -11,11 +11,13 @@ import files/vimrc.tea
 import tools/aws.tea
 import tools/copilot.tea
 import tools/docker.tea
+import tools/dotnet.tea
 import tools/fish.tea
 import tools/neovim.tea
 import tools/prompt.tea
 import tools/terraform.tea
 import tools/tree-sitter.tea
+import tools/rclone.tea
 import tools/rust-analyzer.tea
 import tools/spotify.tea
 
@@ -25,20 +27,7 @@ define type group
   for timestamp do { echo 2147483647 } # This only works when dealing with booleans. When files have timestamps this will hide changes from things above
 end
 
-define type dotnet_tool
-  for timestamp do {
-    dotnet tool list --global | grep -q "$TEA_FOR" && echo 0
-  }
-end
-
 # TODO write node install script
-
-dotnet_tool (*)
-  depends on tea:command dotnet
-  do {
-    dotnet tool install --global "$TEA_FOR"
-  }
-end
 
 group csharp
   depends on dotnet_tool csharp-ls
@@ -158,10 +147,12 @@ task install
 
     tea:command aws,
     tea:command docker,
+    tea:command dotnet,
     tea:command rust-analyzer,
     tea:command spotify,
     tea:command terraform,
     tea:command copilot,
+    tea:command rclone,
     tea:pipx:package pyright
   ]
   do {}
