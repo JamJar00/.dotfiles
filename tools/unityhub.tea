@@ -1,0 +1,17 @@
+import tea
+import tea/platform
+
+set shell sh
+
+tea:command unityhub
+  depends on [tea:platform:os "GNU/Linux", tea:command curl]
+  do {
+    sudo install -d /etc/apt/keyrings
+    curl -fsSL https://hub.unity3d.com/linux/keys/public | sudo gpg --dearmor -o /etc/apt/keyrings/unityhub.gpg
+
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/unityhub.gpg] https://hub.unity3d.com/linux/repos/deb stable main" | sudo tee /etc/apt/sources.list.d/unityhub.list
+
+    sudo apt update
+    sudo apt install unityhub
+  }
+end

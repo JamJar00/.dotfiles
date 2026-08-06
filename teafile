@@ -20,6 +20,7 @@ import tools/tree-sitter.tea
 import tools/rclone.tea
 import tools/rust-analyzer.tea
 import tools/spotify.tea
+import tools/unityhub.tea
 
 set shell sh
 
@@ -153,7 +154,10 @@ task install
     tea:command terraform,
     tea:command copilot,
     tea:command rclone,
-    tea:pipx:package pyright
+    tea:command unityhub,
+    tea:pipx:package pyright,
+
+    ~/.local/unity-shim/code
   ]
   do {}
 end
@@ -180,3 +184,13 @@ end
 #     scoop install CascadiaCode-NF-Mono
 #   }
 # end
+
+# Small shim named code that can be used to trick Unity into thinking VSCode is
+# installed and thus generating project files for csharp-ls
+~/.local/unity-shim/code
+  do {
+    mkdir -p ~/.local/unity-shim
+    touch ~/.local/unity-shim/code
+    chmod +x ~/.local/unity-shim/code
+  }
+end
