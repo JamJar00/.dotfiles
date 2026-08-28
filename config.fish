@@ -19,10 +19,12 @@ if status is-interactive
   [ -s ~/.config/fish/config.local.fish ] && source ~/.config/fish/config.local.fish
 
   function fish_prompt
+    set s $status
+
     if [ "$TERM_PROGRAM" = "iTerm.app" ]
-      prompt --exit-code $status --iterm2
+      prompt --exit-code $s --iterm2
     else
-      prompt --exit-code $status
+      prompt --exit-code $s
     end
   end
 end
