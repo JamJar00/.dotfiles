@@ -9,8 +9,6 @@ if status is-interactive
   fish_add_path ~/.bin
   fish_add_path ~/.local/bin
 
-  fish_add_path ~/Projects/prompt/target/debug
-
   command -v mcfly &> /dev/null && mcfly init fish | source
 
   set -x AWS_DEFAULT_REGION "eu-west-2"

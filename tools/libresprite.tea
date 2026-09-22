@@ -1,0 +1,23 @@
+import tea
+import tea/platform
+
+set shell sh
+
+tea:command libresprite
+  depends on [tea:platform:os "GNU/Linux"]
+  do {
+    curl -L https://github.com/LibreSprite/LibreSprite/releases/download/v1.1/libresprite-development-linux-x86_64.zip
+    unzip libresprite-development-linux-x86_64.zip
+    chmod +x LibreSprite-x86_64.AppImage
+    sudo mv LibreSprite-x86_64.AppImage /usr/local/bin/libresprite
+
+    echo << EOF > ~/.local/share/applications/libresprite.desktop
+[Desktop Entry]
+Type=Application
+Name=LibreSprite
+Comment=A free and open source sprite editor
+Exec=libresprite
+Terminal=false
+EOF
+  }
+end
