@@ -15,6 +15,9 @@ else
   # Pyright
   pip3 install pyright
 
+  # Neovim config
+  ln -s $(pwd)/nvim ~/.config/
+
   # Prompt
   curl -L https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt ~/.local/bin/prompt
   chmod +x ~/.local/bin/prompt
