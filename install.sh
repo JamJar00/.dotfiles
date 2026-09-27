@@ -19,6 +19,6 @@ else
   ln -s $(pwd)/nvim ~/.config/
 
   # Prompt
-  curl -L https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt ~/.local/bin/prompt
+  curl -L https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt -o ~/.local/bin/prompt
   chmod +x ~/.local/bin/prompt
 fi
