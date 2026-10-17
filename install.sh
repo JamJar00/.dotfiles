@@ -1,4 +1,4 @@
-if [[ command -v tea 2>&1 ]]; then
+if command -v tea 2>&1; then
   tea install
 else
   # Neovim
@@ -19,6 +19,17 @@ else
   ln -s $(pwd)/nvim ~/.config/
 
   # Prompt
-  curl -L https://github.com/JamJar00/prompt/releases/download/v1.0.1/prompt -o ~/.local/bin/prompt
+  curl -L https://github.com/JamJar00/prompt/releases/download/v1.1.0/prompt -o ~/.local/bin/prompt
   chmod +x ~/.local/bin/prompt
+
+  # Fish
+  sudo add-apt-repository -y ppa:fish-shell/release-3
+  sudo apt-get install fish -y
+
+  # Fish config
+  mkdir ~/.config/fish
+  ln -s $(pwd)/config.fish ~/.config/fish/config.fish
+
+  # Change shell
+  sudo chsh "$(id -un)" --shell "$(command -v fish)"
 fi
