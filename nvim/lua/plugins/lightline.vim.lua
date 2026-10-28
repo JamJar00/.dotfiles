@@ -27,21 +27,7 @@ return {
       active = {
         left = {{ 'mode', 'paste' }, {'readonly', 'filename', 'modified', 'gitbranch'}},
         right = {{ 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_hints', 'linter_ok' }, { 'lineinfo' }, { 'percent' }}
-      }
+      },
     }
-
-    -- TODO set custom icons when I figure out how to use unicode chars
-    -- let g:lightline#lsp#indicator_hints = "\uf002"
-    -- let g:lightline#lsp#indicator_infos = "\uf129"
-    -- let g:lightline#lsp#indicator_warnings = "\uf071"
-    -- let g:lightline#lsp#indicator_errors = "\uf05e"
-    -- let g:lightline#lsp#indicator_ok = "\uf00c"
-    -- vim.g.lightline.lsp = {
-    --   indicator_hints = 
-    --   indicator_infos = 
-    --   indicator_warnings = 
-    --   indicator_errors = 
-    --   indicator_ok = 
-    -- }
   end
 }
