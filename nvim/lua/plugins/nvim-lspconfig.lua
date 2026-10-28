@@ -6,6 +6,9 @@ return {
     { "ms-jpq/coq_nvim", branch = "coq" },
     { "ms-jpq/coq.artifacts", branch = "artifacts" },
   },
+  init = function()
+    vim.g.coq_settings = {}
+  end,
   config = function()
     local coq = require('coq')
 
