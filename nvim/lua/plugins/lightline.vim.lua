@@ -1,5 +1,6 @@
 return {
   'itchyny/lightline.vim',
+  enabled = false,
   dependencies = {
     { 'itchyny/vim-gitbranch' },
     { 'spywhere/lightline-lsp' }
