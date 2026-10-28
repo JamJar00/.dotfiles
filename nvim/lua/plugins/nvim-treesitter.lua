@@ -1,6 +1,5 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  branch = 'master',
   lazy = false,
   build = ":TSUpdate",
   opts = {
@@ -22,7 +21,7 @@ return {
     }
   },
   config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
+    require('nvim-treesitter').setup(opts)
 
     -- Always use treesitter for folding
     vim.opt.foldmethod = "expr"
@@ -33,22 +32,32 @@ return {
     vim.opt.foldlevelstart = 99
     vim.opt.foldnestmax = 4
 
-    -- If this wasn't present at install time you might need to run TSInstallSync tea
+    -- Need to run `:TSUpdate` then a `:TSInstall tea` if this isn't working
     if vim.fn.filereadable(vim.fn.expand("~/Projects/tree-sitter-tea/grammar.js")) then
-      local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-      parser_config.tea = {
-        install_info = {
-          url = "~/Projects/tree-sitter-tea",
-          files = {"src/parser.c"},
-          generate_requires_npm = false, -- if stand-alone parser without npm dependencies
-          requires_generate_from_grammar = false, -- if folder contains pre-generated src/parser.c
-        },
-        filetype = "tea",
-        used_by = { "teafile" }, -- if filetype is not the same as parser name
-      }
+      vim.api.nvim_create_autocmd('User', { pattern = 'TSUpdate',
+        callback = function()
+           require('nvim-treesitter.parsers').tea = {
+             install_info = {
+               -- url = 'https://github.com/zimbulang/tree-sitter-zimbu',
+               -- revision = <sha>, -- commit hash for revision to check out; HEAD if missing
+               path = '~/Projects/tree-sitter-tea',
+               -- location = 'parser', -- only needed if the parser is in subdirectory of a "monorepo"
+               -- generate = true, -- only needed if repo does not contain pre-generated `src/parser.c`
+               -- generate_from_json = false, -- only needed if repo does not contain `src/grammar.json` either
+               queries = '~/Projects/tea/nvim-treesitter/queries/tea', -- also install queries from given directory
+             },
+           }
+         end})
 
-      -- Symlink the queries
-      vim.cmd('silent! !ln -s $HOME/Projects/tea/nvim-treesitter/queries/tea/ $HOME/.local/share/nvim/lazy/nvim-treesitter/queries/tea')
+      vim.filetype.add({
+        extension = {
+          tea = 'tea',
+          teafile = 'tea'
+        },
+        filename = {
+          ['teafile'] = 'tea'
+        }
+      })
     end
   end
 }
